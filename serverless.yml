@@ -1,4 +1,4 @@
-service: aws-node-project
+service: drebedengi-slack
 
 frameworkVersion: '3'
 useDotenv: true
