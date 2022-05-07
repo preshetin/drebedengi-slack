@@ -1,0 +1,29 @@
+display_information:
+  name: drebedengi-dev
+  description: dev version of drebedengi slack client
+  background_color: "#636363"
+features:
+  bot_user:
+    display_name: drebedengi-dev
+    always_online: false
+oauth_config:
+  scopes:
+    bot:
+      - app_mentions:read
+      - channels:history
+      - chat:write
+      - groups:history
+      - im:history
+      - mpim:history
+settings:
+  event_subscriptions:
+    request_url: http://d5ac-54-159-219-217.ngrok.io/slack/events
+    bot_events:
+      - app_mention
+      - message.channels
+      - message.groups
+      - message.im
+      - message.mpim
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
