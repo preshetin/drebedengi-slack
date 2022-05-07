@@ -1,0 +1,3 @@
+[submodule "ts-ddng-client"]
+	path = ts-ddng-client
+	url = https://github.com/preshetin/ts-ddng-client

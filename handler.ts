@@ -1,5 +1,5 @@
 import * as _ from 'lodash'
-import {ApiClient} from './ts-ddng-client/src/index'
+import ddClient from './ddClient';
 import { GetBalanceParams } from './ts-ddng-client/src/messages/getBalance'
 import { CreateExpenseParams } from './ts-ddng-client/src/messages/setRecordList'
 
@@ -9,11 +9,8 @@ export async function hello(event, context, callback) {
   // dependencies work as expected
 //   console.log(_.VERSION)
 
-  const client = new ApiClient('demo_api', 'demo@example.com', 'demo')
-
   const params: GetBalanceParams = { };
-  const balances = await client.getBalance(params);
-//   console.log('balances', balances);
+  const balances = await ddClient.getBalance(params);
 
 //   const createExpenseParams: CreateExpenseParams = {
 //       placeId: 40034,
@@ -32,7 +29,7 @@ export async function hello(event, context, callback) {
   const response = {
     statusCode: 200,
     body: JSON.stringify({
-      message: 'Go 33 Serverless v1.0! Your function executed successfully!',
+      message: 'Go 44 Serverless v1.0! Your function executed successfully!',
       env: process.env.SLACK_SIGNING_SECRET,
       balances,
       input: event,
