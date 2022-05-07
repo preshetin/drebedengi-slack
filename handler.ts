@@ -11,19 +11,19 @@ export async function hello(event, context, callback) {
 
   const client = new ApiClient('demo_api', 'demo@example.com', 'demo')
 
-//   const params: GetBalanceParams = { };
-//   const balances = await client.getBalance(params);
+  const params: GetBalanceParams = { };
+  const balances = await client.getBalance(params);
 //   console.log('balances', balances);
 
-  const createExpenseParams: CreateExpenseParams = {
-      placeId: 40034,
-      comment: 'cool drug',
-      sum: 322222,
-      currencyId: 17,
-      categoryId: 40012
-  }
-  const createExpenseResult = await client.createExpense(createExpenseParams)
-  console.log('createExenseResult', createExpenseResult)
+//   const createExpenseParams: CreateExpenseParams = {
+//       placeId: 40034,
+//       comment: 'cool drug ' + (new Date()).toISOString(),
+//       sum: 322,
+//       currencyId: 17,
+//       categoryId: 40012
+//   }
+//   const createExpenseResult = await client.createExpense(createExpenseParams)
+//   console.log('createExenseResult', createExpenseResult)
 
 
   // async/await also works out of the box
@@ -33,6 +33,7 @@ export async function hello(event, context, callback) {
     statusCode: 200,
     body: JSON.stringify({
       message: 'Go 11 Serverless v1.0! Your function executed successfully!',
+      balances,
       input: event,
     }),
   };

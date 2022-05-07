@@ -6,6 +6,7 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "lodash": "^4.17.21",
-    "strong-soap": "^3.4.0"
+    "strong-soap": "^3.4.0",
+    "tslib": "^2.4.0"
   }
 }
