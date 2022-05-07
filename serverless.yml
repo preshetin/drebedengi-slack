@@ -1,9 +1,11 @@
 service: aws-node-project
 
 frameworkVersion: '3'
+useDotenv: true
 
 plugins:
   - serverless-plugin-typescript
+  - serverless-offline
 
 provider:
   name: aws
@@ -14,3 +16,9 @@ functions:
     handler: handler.hello
     events:
       - http: get /hello
+  slack:
+    handler: src/main.handler
+    events:
+      - http:
+          path: slack/events
+          method: post

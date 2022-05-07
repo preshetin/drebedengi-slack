@@ -7,7 +7,7 @@ import { CreateExpenseParams } from './ts-ddng-client/src/messages/setRecordList
 export async function hello(event, context, callback) {
 
   // dependencies work as expected
-  console.log(_.VERSION)
+//   console.log(_.VERSION)
 
   const client = new ApiClient('demo_api', 'demo@example.com', 'demo')
 
@@ -32,11 +32,12 @@ export async function hello(event, context, callback) {
   const response = {
     statusCode: 200,
     body: JSON.stringify({
-      message: 'Go 11 Serverless v1.0! Your function executed successfully!',
+      message: 'Go 33 Serverless v1.0! Your function executed successfully!',
+      env: process.env.SLACK_SIGNING_SECRET,
       balances,
       input: event,
     }),
   };
 
-  callback(null, response);
+  return response;
 }
