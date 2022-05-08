@@ -3,12 +3,11 @@ import axios from "axios";
 import ddClient from "../ddClient";
 
 export async function openExpenseModal(client: WebClient, triggerId: string) {
-
   const categories = await ddClient.getCategoryList();
-  const categoriesOptions = buildCategoriesOptions(categories)
+  const categoriesOptions = buildCategoriesOptions(categories);
 
   const places = await ddClient.getPlaces();
-  const placesOptions = buildPlacesOptions(places)
+  const placesOptions = buildPlacesOptions(places);
 
   const currencies = await ddClient.getCurrencyList();
   const currencyOptions = buildCurencyOptions(currencies);
@@ -20,12 +19,12 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
       callback_id: "expense-modal-submit",
       submit: {
         type: "plain_text",
-        text: "Submit",
+        text: "Отправить",
         emoji: true,
       },
       close: {
         type: "plain_text",
-        text: "Cancel",
+        text: "Отмена",
         emoji: true,
       },
       title: {
@@ -36,9 +35,9 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
       blocks: [
         {
           type: "input",
-          block_id: 'sum',
+          block_id: "sum",
           element: {
-            action_id: 'sum',
+            action_id: "sum",
             type: "plain_text_input",
             placeholder: {
               type: "plain_text",
@@ -54,9 +53,9 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
         },
         {
           type: "input",
-          block_id: 'currencyId',
+          block_id: "currencyId",
           element: {
-            action_id: 'currencyId',
+            action_id: "currencyId",
             type: "static_select",
             placeholder: {
               type: "plain_text",
@@ -72,13 +71,13 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
           },
         },
         {
-          type: 'divider'
+          type: "divider",
         },
         {
           type: "input",
-          block_id: 'placeId',
+          block_id: "placeId",
           element: {
-            action_id: 'placeId',
+            action_id: "placeId",
             type: "static_select",
             placeholder: {
               type: "plain_text",
@@ -95,9 +94,9 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
         },
         {
           type: "input",
-          block_id: 'comment',
+          block_id: "comment",
           element: {
-            action_id: 'comment',
+            action_id: "comment",
             type: "plain_text_input",
             placeholder: {
               type: "plain_text",
@@ -112,9 +111,9 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
         },
         {
           type: "input",
-          block_id: 'categoryId',
+          block_id: "categoryId",
           element: {
-            action_id: 'categoryId',
+            action_id: "categoryId",
             type: "static_select",
             placeholder: {
               type: "plain_text",
@@ -131,9 +130,9 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
         },
         {
           type: "input",
-          block_id: 'recordDate',
+          block_id: "recordDate",
           element: {
-            action_id: 'recordDate',
+            action_id: "recordDate",
             type: "datepicker",
             placeholder: {
               type: "plain_text",
@@ -155,10 +154,10 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
 export async function notify(body: any) {
   // TODO: respond should be supported by Bolt
   const responseUrl = (body as any).response_url;
-  console.log('responseUrl', responseUrl)
+  console.log("responseUrl", responseUrl);
   if (responseUrl && responseUrl.length > 0) {
-    const url = responseUrl
-    console.log('url', url,  JSON.stringify(body.view.state.values))
+    const url = responseUrl;
+    console.log("url", url, JSON.stringify(body.view.state.values));
     await axios.post(url, {
       text: "```" + JSON.stringify(body.view.state.values) + "```",
     });
@@ -166,31 +165,33 @@ export async function notify(body: any) {
 }
 
 function buildCurencyOptions(currencies: any[]): any[] {
-  return currencies.map(currency => ({
+  return currencies.map((currency) => ({
     text: {
-      type: 'plain_text',
+      type: "plain_text",
       text: currency.code,
     },
-    value: `${currency.id}`
-  }))
+    value: `${currency.id}`,
+  }));
 }
 
-function buildPlacesOptions(places: import("../ts-ddng-client/src/messages/getPlaceList").Place[]): any[] {
-  return places.map(place => ({
+function buildPlacesOptions(
+  places: import("../ts-ddng-client/src/messages/getPlaceList").Place[]
+): any[] {
+  return places.map((place) => ({
     text: {
-      type: 'plain_text',
+      type: "plain_text",
       text: place.name,
     },
-    value: `${place.id}`
-  }))
+    value: `${place.id}`,
+  }));
 }
 
 function buildCategoriesOptions(categories: any[]): any[] {
-  return categories.map(category => ({
+  return categories.map((category) => ({
     text: {
-      type: 'plain_text',
+      type: "plain_text",
       text: category.name,
     },
-    value: `${category.id}`
-  }))
+    value: `${category.id}`,
+  }));
 }

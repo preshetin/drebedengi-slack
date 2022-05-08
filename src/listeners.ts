@@ -6,6 +6,7 @@ import * as customMiddleware from "./customMiddleware";
 import sayBalanceMessage from "./sayBalanceMessage";
 import { ExpenseFormResult } from "./expenseFormResultInterface";
 import { CreateExpenseParams } from "../ts-ddng-client/src/messages/setRecordList";
+import { expenseMessage } from "./expenseMessage";
 
 export function registerListeners(app: App) {
   customMiddleware.enableAll(app);
@@ -69,16 +70,14 @@ export function registerListeners(app: App) {
 
   app.view("expense-modal-submit", async ({ client, body, ack, logger }) => {
     try {
-      console.log(
-        "expense-modal-submit",
-        JSON.stringify(body.view.state.values)
-      );
       const values = (body.view.state.values as unknown) as ExpenseFormResult;
 
       if (values && values.sum && isNaN(Number(values.sum.sum.value))) {
         await ack({
           response_action: "errors",
-          errors: { sum: "Введите число. Для разделения копеек ипользуйте точку", },
+          errors: {
+            sum: "Введите число. Для разделения копеек ипользуйте точку",
+          },
         });
         return;
       }
@@ -101,22 +100,27 @@ export function registerListeners(app: App) {
 
       const createExpenseParams: CreateExpenseParams = {
         placeId: +values.placeId.placeId.selected_option.value,
-        comment: values.comment.comment.value + (new Date()).toISOString(),
+        comment: values.comment.comment.value,
         sum: Math.floor(+values.sum.sum.value * 100),
         currencyId: +values.currencyId.currencyId.selected_option.value,
-        categoryId: +values.categoryId.categoryId.selected_option.value
+        categoryId: +values.categoryId.categoryId.selected_option.value,
+      };
+
+      if (typeof values.recordDate.recordDate.selected_date === "string") {
+        createExpenseParams.dateTime =
+          values.recordDate.recordDate.selected_date;
       }
 
-      if (typeof values.recordDate.recordDate.selected_date === 'string') {
-        createExpenseParams.dateTime = values.recordDate.recordDate.selected_date
-      }
+      const createExpenseResult = await ddClient.createExpense(
+        createExpenseParams
+      );
+      console.log("createExpenseResult", createExpenseResult);
 
-      const createExpenseResult = await ddClient.createExpense(createExpenseParams)
-      console.log('createExpenseResult', createExpenseResult)
+      const mes = await expenseMessage(values, body.user.id);
 
-      client.chat.postMessage({
+      await client.chat.postMessage({
         channel,
-        text: `I'll be adding it to Drebedengi....`,
+        ...mes,
       });
     } catch (e) {
       logger.error(
