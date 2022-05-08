@@ -2,8 +2,10 @@ import { WebClient } from "@slack/web-api";
 import axios from "axios";
 import ddClient from "../ddClient";
 
-export async function openModal(client: WebClient, triggerId: string) {
+export async function openExpenseModal(client: WebClient, triggerId: string) {
+
   const categories = await ddClient.getCategoryList();
+  const categoriesOptions = buildCategoriesOptions(categories)
 
   const places = await ddClient.getPlaces();
   const placesOptions = buildPlacesOptions(places)
@@ -15,7 +17,7 @@ export async function openModal(client: WebClient, triggerId: string) {
     trigger_id: triggerId,
     view: {
       type: "modal",
-      callback_id: "request-modal",
+      callback_id: "expense-modal-submit",
       submit: {
         type: "plain_text",
         text: "Submit",
@@ -28,50 +30,15 @@ export async function openModal(client: WebClient, triggerId: string) {
       },
       title: {
         type: "plain_text",
-        text: "Добавить Расход",
+        text: "Добавить расход",
         emoji: true,
       },
       blocks: [
         {
           type: "input",
-          block_id: 'recordType',
-          element: {
-            type: "static_select",
-            placeholder: {
-              type: "plain_text",
-              text: "Расход или поступление",
-              emoji: true,
-            },
-            options: [
-              {
-                text: {
-                  type: "plain_text",
-                  text: ":heavy_minus_sign: Расход",
-                  emoji: true,
-                },
-                value: "expense",
-              },
-              {
-                text: {
-                  type: "plain_text",
-                  text: ":heavy_plus_sign: Поступление",
-                  emoji: true,
-                },
-                value: "income",
-              },
-            ],
-            action_id: "recordType",
-          },
-          label: {
-            type: "plain_text",
-            text: "Расход или поступление",
-            emoji: true,
-          },
-        },
-        {
-          type: "input",
           block_id: 'sum',
           element: {
+            action_id: 'sum',
             type: "plain_text_input",
             placeholder: {
               type: "plain_text",
@@ -89,6 +56,7 @@ export async function openModal(client: WebClient, triggerId: string) {
           type: "input",
           block_id: 'currencyId',
           element: {
+            action_id: 'currencyId',
             type: "static_select",
             placeholder: {
               type: "plain_text",
@@ -104,9 +72,13 @@ export async function openModal(client: WebClient, triggerId: string) {
           },
         },
         {
+          type: 'divider'
+        },
+        {
           type: "input",
           block_id: 'placeId',
           element: {
+            action_id: 'placeId',
             type: "static_select",
             placeholder: {
               type: "plain_text",
@@ -122,27 +94,50 @@ export async function openModal(client: WebClient, triggerId: string) {
           },
         },
         {
-          type: 'divider'
-        },
-        {
           type: "input",
+          block_id: 'comment',
           element: {
+            action_id: 'comment',
             type: "plain_text_input",
+            placeholder: {
+              type: "plain_text",
+              text: "На что были потрачены деньги",
+            },
             multiline: true,
           },
           label: {
             type: "plain_text",
-            text: "Комментарий",
+            text: "Описание траты",
           },
-          optional: true,
         },
         {
           type: "input",
+          block_id: 'categoryId',
           element: {
+            action_id: 'categoryId',
+            type: "static_select",
+            placeholder: {
+              type: "plain_text",
+              text: "Выберите категорию",
+              emoji: true,
+            },
+            options: categoriesOptions,
+          },
+          label: {
+            type: "plain_text",
+            text: "Категория",
+            emoji: true,
+          },
+        },
+        {
+          type: "input",
+          block_id: 'recordDate',
+          element: {
+            action_id: 'recordDate',
             type: "datepicker",
             placeholder: {
               type: "plain_text",
-              text: "Select a date",
+              text: "Если трата сегодня, можете оставить пустым",
             },
           },
           label: {
@@ -187,5 +182,15 @@ function buildPlacesOptions(places: import("../ts-ddng-client/src/messages/getPl
       text: place.name,
     },
     value: `${place.id}`
+  }))
+}
+
+function buildCategoriesOptions(categories: any[]): any[] {
+  return categories.map(category => ({
+    text: {
+      type: 'plain_text',
+      text: category.name,
+    },
+    value: `${category.id}`
   }))
 }
