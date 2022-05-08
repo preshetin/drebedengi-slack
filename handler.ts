@@ -1,6 +1,5 @@
 import * as _ from 'lodash'
 import ddClient from './ddClient';
-import { GetBalanceParams } from './ts-ddng-client/src/messages/getBalance'
 import { CreateExpenseParams } from './ts-ddng-client/src/messages/setRecordList'
 
 // modern module syntax
@@ -9,8 +8,10 @@ export async function hello(event, context, callback) {
   // dependencies work as expected
 //   console.log(_.VERSION)
 
-  const params: GetBalanceParams = { };
-  const balances = await ddClient.getBalance(params);
+  const balances = await ddClient.getBalance({});
+  const categories = await ddClient.getCategoryList()
+  const places = await ddClient.getPlaces()
+  const currencies = await ddClient.getCurrencyList()
 
 //   const createExpenseParams: CreateExpenseParams = {
 //       placeId: 40034,
@@ -29,10 +30,13 @@ export async function hello(event, context, callback) {
   const response = {
     statusCode: 200,
     body: JSON.stringify({
-      message: 'Go 44 Serverless v1.0! Your function executed successfully!',
+      message: 'Go 55 Serverless v1.0! Your function executed successfully!',
       env: process.env.SLACK_SIGNING_SECRET,
-      balances,
-      input: event,
+      categories,
+      places,
+      currencies,
+      // balances,
+      // input: event,
     }),
   };
 
