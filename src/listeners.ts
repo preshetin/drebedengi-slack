@@ -8,28 +8,18 @@ export function registerListeners(app: App) {
   customMiddleware.enableAll(app);
 
   app.command(
-    "/publish-home-tab",
+    "/drebedengi-record",
     async ({ body, client, logger, context, ack }) => {
-      const userId = body.user_id;
+      await ack();
       try {
-        await simpleHomeTab.publishHomeTab(client, userId);
-        const response = await simpleHomeTab.buildNavigationMessageResponse(
-          client,
-          body.team_id,
-          context.botId!!
-        );
-        await ack(response);
+        await simpleModal.openModal(client, body.trigger_id);
       } catch (e) {
         logger.error(
-          `Failed to publish a view for user: ${userId} (response: ${JSON.stringify(
-            e
-          )})`,
+          `Failed to publish a view for user: (response: ${JSON.stringify(e)})`,
           e
         );
-        await ack(`:x: Failed to publish a modal (error: ${e.code})`);
       }
-    }
-  );
+  });
 
   // app.message('foo', async ({body, message}) => {
   //   console.log('22222')
@@ -50,7 +40,7 @@ export function registerListeners(app: App) {
     }
   );
 
-  app.shortcut("open-modal", async ({ body, client, logger, ack }) => {
+  app.shortcut("drebedengi-add-record-shortcut", async ({ body, client, logger, ack }) => {
     await ack();
     try {
       await simpleModal.openModal(client, body.trigger_id);
@@ -62,8 +52,16 @@ export function registerListeners(app: App) {
     }
   });
 
-  app.view("request-modal", async ({ body, ack }) => {
-    await simpleModal.notify(body);
+  app.view("request-modal", async ({ body, ack, logger }) => {
     await ack();
+    console.log('request-modal 5555 values', JSON.stringify(body.view.state.values))
+    try {
+      await simpleModal.notify(body);
+    } catch (e) {
+      logger.error(
+        `Failed to handle modal submit (response: ${JSON.stringify(e)})`,
+        e
+      );
+    }
   });
 }
