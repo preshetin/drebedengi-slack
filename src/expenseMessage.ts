@@ -11,26 +11,30 @@ export async function expenseMessage(
   user: string
 ): Promise<MessageBlocks> {
   const categories = await ddClient.getCategoryList();
+  const currencies = await ddClient.getCurrencyList();
   const places = await ddClient.getPlaces();
 
   const sum = values.sum.sum.value;
-  const currency = values.currencyId.currencyId.selected_option.value;
   const comment = values.comment.comment.value;
-  // const category = categories.find((category: { id: number; }) => category.id === +values.categoryId.categoryId.selected_option.value)!.name
+
+  const category = categories.find((category: { id: string }) => category.id === values.categoryId.categoryId.selected_option.value)!.name;
+  const currency = currencies.find((currency: {id: string}) => currency.id === values.currencyId.currencyId.selected_option.value)!.code;
   const place = places.find(
     (place) => place.id === +values.placeId.placeId.selected_option.value
   )!.name;
+
   const recordDate = values.recordDate.recordDate.selected_date
     ? values.recordDate.recordDate.selected_date
     : "сегодня";
+
   return {
-    text: `Новая трата на сумму `,
+    text: `Новая трата на сумму ${sum} ${currency} от <@${user}>,  категория ${category} `,
     blocks: [
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `\`Новая Трата\`\n\n *Cумма:* ${sum} ${currency} \n *Категория:* XXXk \n *Комментарий:* ${comment} \n *Кошелек:* ${place} | добавил(а) <@${user}>  \n *Дата:* ${recordDate}  \n`,
+          text: `\`Новая Трата\`\n\n *Cумма:* ${sum} ${currency} \n *Категория:* ${category} \n *Комментарий:* ${comment} \n *Кошелек:* ${place} | добавил(а) <@${user}>  \n *Дата:* ${recordDate}  \n`,
         },
       },
       {
