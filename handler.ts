@@ -31,7 +31,7 @@ export async function hello(event, context, callback) {
     statusCode: 200,
     body: JSON.stringify({
       message: 'Go 55 Serverless v1.0! Your function executed successfully!',
-      env: process.env.SLACK_SIGNING_SECRET,
+      // env: process.env.SLACK_SIGNING_SECRET,
       categories,
       places,
       currencies,
