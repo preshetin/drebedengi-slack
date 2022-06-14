@@ -1,15 +1,16 @@
 import { WebClient } from "@slack/web-api";
+import * as ddApi from '../ddApi';
 import axios from "axios";
 import ddClient from "../ddClient";
 
 export async function openExpenseModal(client: WebClient, triggerId: string) {
-  const categories = await ddClient.getCategoryList();
+  const categories = await ddApi.getCategoryList();
   const categoriesOptions = buildCategoriesOptions(categories);
 
-  const places = await ddClient.getPlaces();
+  const places = await ddApi.getPlaceList();
   const placesOptions = buildPlacesOptions(places);
 
-  const currencies = await ddClient.getCurrencyList();
+  const currencies = await ddApi.getCurrencyList();
   const currencyOptions = buildCurencyOptions(currencies);
 
   await client.views.open({

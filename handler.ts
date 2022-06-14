@@ -1,17 +1,18 @@
 import * as _ from 'lodash'
 import ddClient from './ddClient';
+import * as ddApi from './ddApi';
 import { CreateExpenseParams } from './ts-ddng-client/src/messages/setRecordList'
 
 // modern module syntax
 export async function hello(event, context, callback) {
 
-  // dependencies work as expected
-//   console.log(_.VERSION)
+  // const balances = await ddClient.getBalance({});
 
-  const balances = await ddClient.getBalance({});
-  const categories = await ddClient.getCategoryList()
-  const places = await ddClient.getPlaces()
-  const currencies = await ddClient.getCurrencyList()
+  // const categories = await ddApi.getCategoryList()
+  // console.log(categories)
+
+  // const places = await ddClient.getPlaces()
+  const currencies = await ddApi.getCurrencyList()
 
 //   const createExpenseParams: CreateExpenseParams = {
 //       placeId: 40034,
@@ -24,7 +25,6 @@ export async function hello(event, context, callback) {
 //   console.log('createExenseResult', createExpenseResult)
 
 
-  // async/await also works out of the box
   await new Promise((resolve, reject) => setTimeout(resolve, 500))
 
   const response = {
@@ -32,8 +32,8 @@ export async function hello(event, context, callback) {
     body: JSON.stringify({
       message: 'Go 55 Serverless v1.0! Your function executed successfully!',
       // env: process.env.SLACK_SIGNING_SECRET,
-      categories,
-      places,
+      // categories,
+      // places,
       currencies,
       // balances,
       // input: event,

@@ -1,4 +1,5 @@
 import ddClient from "../ddClient";
+import * as ddApi from '../ddApi';
 import { ExpenseFormResult } from "./expenseFormResultInterface";
 
 interface MessageBlocks {
@@ -10,9 +11,9 @@ export async function expenseMessage(
   values: ExpenseFormResult,
   user: string
 ): Promise<MessageBlocks> {
-  const categories = await ddClient.getCategoryList();
-  const currencies = await ddClient.getCurrencyList();
-  const places = await ddClient.getPlaces();
+  const categories = await ddApi.getCategoryList();
+  const currencies = await ddApi.getCurrencyList();
+  const places = await ddApi.getPlaceList();
 
   const sum = values.sum.sum.value;
   const comment = values.comment.comment.value;

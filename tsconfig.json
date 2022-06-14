@@ -9,6 +9,7 @@
       "outDir": ".build",
       "moduleResolution": "node",
       "lib": ["es2015"],
+      "resolveJsonModule": true,
       "rootDir": "./"
     }
   }
