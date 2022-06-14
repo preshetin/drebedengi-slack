@@ -1,58 +1,58 @@
 export interface ExpenseFormResult {
-    sum:        Sum;
-    currencyId: CurrencyID;
-    placeId:    PlaceID;
-    comment:    ExpenseFormResultComment;
-    categoryId: CategoryID;
-    recordDate: ExpenseFormResultRecordDate;
+  sum: Sum;
+  currencyId: CurrencyID;
+  placeId: PlaceID;
+  comment: ExpenseFormResultComment;
+  categoryId: CategoryID;
+  recordDate: ExpenseFormResultRecordDate;
 }
 
 export interface CategoryID {
-    categoryId: ID;
+  categoryId: ID;
 }
 
 export interface ID {
-    type:            string;
-    selected_option: SelectedOption;
+  type: string;
+  selected_option: SelectedOption;
 }
 
 export interface SelectedOption {
-    text:  Text;
-    value: string;
+  text: Text;
+  value: string;
 }
 
 export interface Text {
-    type:  string;
-    text:  string;
-    emoji: boolean;
+  type: string;
+  text: string;
+  emoji: boolean;
 }
 
 export interface ExpenseFormResultComment {
-    comment: SumClass;
+  comment: SumClass;
 }
 
 export interface SumClass {
-    type:  string;
-    value: string;
+  type: string;
+  value: string;
 }
 
 export interface CurrencyID {
-    currencyId: ID;
+  currencyId: ID;
 }
 
 export interface PlaceID {
-    placeId: ID;
+  placeId: ID;
 }
 
 export interface ExpenseFormResultRecordDate {
-    recordDate: RecordDateRecordDate;
+  recordDate: RecordDateRecordDate;
 }
 
 export interface RecordDateRecordDate {
-    type:          string;
-    selected_date: null | string;
+  type: string;
+  selected_date: null | string;
 }
 
 export interface Sum {
-    sum: SumClass;
+  sum: SumClass;
 }

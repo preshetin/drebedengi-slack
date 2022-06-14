@@ -1,1 +1,90 @@
-{}
+[
+  {
+    "id": "1992530",
+    "name": "RUB",
+    "course": "1",
+    "code": "RUB",
+    "family_id": "433906",
+    "is_default": "f",
+    "is_autoupdate": "t",
+    "is_hidden": "f",
+    "is_investing": "f"
+  },
+  {
+    "id": "1992534",
+    "name": "BYN",
+    "course": "22.726757",
+    "code": "BYN",
+    "family_id": "433906",
+    "is_default": "t",
+    "is_autoupdate": "t",
+    "is_hidden": "f",
+    "is_investing": "f"
+  },
+  {
+    "id": "1992532",
+    "name": "EUR",
+    "course": "60.177917",
+    "code": "EUR",
+    "family_id": "433906",
+    "is_default": "f",
+    "is_autoupdate": "t",
+    "is_hidden": "f",
+    "is_investing": "f"
+  },
+  {
+    "id": "1992537",
+    "name": "индийские",
+    "course": "0.73682284",
+    "code": "INR",
+    "family_id": "433906",
+    "is_default": "f",
+    "is_autoupdate": "t",
+    "is_hidden": "f",
+    "is_investing": "f"
+  },
+  {
+    "id": "1992536",
+    "name": "румынские",
+    "course": "12.17319",
+    "code": "RON",
+    "family_id": "433906",
+    "is_default": "f",
+    "is_autoupdate": "t",
+    "is_hidden": "f",
+    "is_investing": "f"
+  },
+  {
+    "id": "1992535",
+    "name": "грузинские",
+    "course": "19.557823",
+    "code": "GEL",
+    "family_id": "433906",
+    "is_default": "f",
+    "is_autoupdate": "t",
+    "is_hidden": "f",
+    "is_investing": "f"
+  },
+  {
+    "id": "1992533",
+    "name": "грн",
+    "course": "1.9376127",
+    "code": "UAH",
+    "family_id": "433906",
+    "is_default": "f",
+    "is_autoupdate": "t",
+    "is_hidden": "f",
+    "is_investing": "f"
+  },
+  {
+    "id": "1992531",
+    "name": "USD",
+    "course": "57.5",
+    "code": "USD",
+    "family_id": "433906",
+    "is_default": "f",
+    "is_autoupdate": "t",
+    "is_hidden": "f",
+    "is_investing": "f"
+  }
+]

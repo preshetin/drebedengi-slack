@@ -70,7 +70,7 @@ export function registerListeners(app: App) {
 
   app.view("expense-modal-submit", async ({ client, body, ack, logger }) => {
     try {
-      const values = (body.view.state.values as unknown) as ExpenseFormResult;
+      const values = body.view.state.values as unknown as ExpenseFormResult;
 
       if (values && values.sum && isNaN(Number(values.sum.sum.value))) {
         await ack({

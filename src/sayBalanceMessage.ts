@@ -15,12 +15,11 @@ async function sayBalanceMessage(say: SayFn) {
         type: "section",
         text: {
           type: "mrkdwn",
-          text:
-            `Всем привет :wave:. Я пока только умею показывать баланс даны на данный момент. Вот он:\n${balancesFormattedList} `,
+          text: `Всем привет :wave:. Я пока только умею показывать баланс даны на данный момент. Вот он:\n${balancesFormattedList} `,
         },
       },
       {
-        "type": "divider"
+        type: "divider",
       },
       {
         type: "context",

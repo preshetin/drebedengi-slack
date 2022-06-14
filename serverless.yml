@@ -1,6 +1,6 @@
 service: drebedengi-slack
 
-frameworkVersion: '3'
+frameworkVersion: "3"
 useDotenv: true
 
 plugins:

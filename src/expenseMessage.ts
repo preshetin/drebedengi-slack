@@ -1,5 +1,5 @@
 import ddClient from "../ddClient";
-import * as ddApi from '../ddApi';
+import * as ddApi from "../ddApi";
 import { ExpenseFormResult } from "./expenseFormResultInterface";
 
 interface MessageBlocks {
@@ -18,8 +18,14 @@ export async function expenseMessage(
   const sum = values.sum.sum.value;
   const comment = values.comment.comment.value;
 
-  const category = categories.find((category: { id: string }) => category.id === values.categoryId.categoryId.selected_option.value)!.name;
-  const currency = currencies.find((currency: {id: string}) => currency.id === values.currencyId.currencyId.selected_option.value)!.code;
+  const category = categories.find(
+    (category: { id: string }) =>
+      category.id === values.categoryId.categoryId.selected_option.value
+  )!.name;
+  const currency = currencies.find(
+    (currency: { id: string }) =>
+      currency.id === values.currencyId.currencyId.selected_option.value
+  )!.code;
   const place = places.find(
     (place) => place.id === +values.placeId.placeId.selected_option.value
   )!.name;
@@ -67,8 +73,7 @@ export async function expenseMessage(
         elements: [
           {
             type: "mrkdwn",
-            text:
-              ":bulb: Чтобы внести трату, введите `/drebedengi-expense` строке чата и нажмите _Ввод_ / _Enter_. Или нажмите на плюсик под строкой чата и начните вводить _Внести расход_",
+            text: ":bulb: Чтобы внести трату, введите `/drebedengi-expense` строке чата и нажмите _Ввод_ / _Enter_. Или нажмите на плюсик под строкой чата и начните вводить _Внести расход_",
           },
         ],
       },

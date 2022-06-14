@@ -1,5 +1,5 @@
 import { WebClient } from "@slack/web-api";
-import * as ddApi from '../ddApi';
+import * as ddApi from "../ddApi";
 import axios from "axios";
 import ddClient from "../ddClient";
 

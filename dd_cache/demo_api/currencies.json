@@ -1,46 +1,46 @@
 [
-    {
-      "id": "18",
-      "name": "USD",
-      "course": "57.025",
-      "code": "USD",
-      "family_id": "5",
-      "is_default": "f",
-      "is_autoupdate": "t",
-      "is_hidden": "f",
-      "is_investing": "f"
-    },
-    {
-      "id": "19",
-      "name": "EUR",
-      "course": "59.734936",
-      "code": "EUR",
-      "family_id": "5",
-      "is_default": "f",
-      "is_autoupdate": "t",
-      "is_hidden": "f",
-      "is_investing": "f"
-    },
-    {
-      "id": "20",
-      "name": "грн",
-      "course": "4.8506999015808105",
-      "code": "UAH",
-      "family_id": "5",
-      "is_default": "f",
-      "is_autoupdate": "f",
-      "is_hidden": "f",
-      "is_investing": "f"
-    },
-    {
-      "id": "17",
-      "name": "руб",
-      "course": "1",
-      "code": "RUB",
-      "family_id": "5",
-      "is_default": "t",
-      "is_autoupdate": "t",
-      "is_hidden": "f",
-      "is_investing": "f"
-    }
-  ]
+  {
+    "id": "18",
+    "name": "USD",
+    "course": "57.025",
+    "code": "USD",
+    "family_id": "5",
+    "is_default": "f",
+    "is_autoupdate": "t",
+    "is_hidden": "f",
+    "is_investing": "f"
+  },
+  {
+    "id": "19",
+    "name": "EUR",
+    "course": "59.734936",
+    "code": "EUR",
+    "family_id": "5",
+    "is_default": "f",
+    "is_autoupdate": "t",
+    "is_hidden": "f",
+    "is_investing": "f"
+  },
+  {
+    "id": "20",
+    "name": "грн",
+    "course": "4.8506999015808105",
+    "code": "UAH",
+    "family_id": "5",
+    "is_default": "f",
+    "is_autoupdate": "f",
+    "is_hidden": "f",
+    "is_investing": "f"
+  },
+  {
+    "id": "17",
+    "name": "руб",
+    "course": "1",
+    "code": "RUB",
+    "family_id": "5",
+    "is_default": "t",
+    "is_autoupdate": "t",
+    "is_hidden": "f",
+    "is_investing": "f"
+  }
+]
