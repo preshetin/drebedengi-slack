@@ -1,326 +1,218 @@
 [
   {
-    "id": "41061",
+    "id": "16049217",
     "parent_id": "-1",
-    "budget_family_id": "5",
+    "budget_family_id": "433906",
     "type": "3",
     "name": "Без категории",
     "is_hidden": "f",
-    "sort": "1"
+    "sort": "16049217"
   },
   {
-    "id": "40000",
+    "id": "16049218",
     "parent_id": "-1",
-    "budget_family_id": "5",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Другие траты",
+    "name": "Центр (\"Верасок\")",
     "is_hidden": "f",
-    "sort": "40000"
+    "sort": "16049218"
   },
   {
-    "id": "40001",
+    "id": "16049221",
     "parent_id": "-1",
-    "budget_family_id": "5",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Еда и продукты",
+    "name": "Курсы",
     "is_hidden": "f",
-    "sort": "40001"
+    "sort": "16049221"
   },
   {
-    "id": "40005",
+    "id": "16049227",
     "parent_id": "-1",
-    "budget_family_id": "5",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Одежда",
+    "name": "ИП",
     "is_hidden": "f",
-    "sort": "40005"
+    "sort": "16052382"
   },
   {
-    "id": "40012",
+    "id": "16052382",
     "parent_id": "-1",
-    "budget_family_id": "5",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Медицина",
+    "name": "Мобильная связь",
     "is_hidden": "f",
-    "sort": "40012"
+    "sort": "16178764"
   },
   {
-    "id": "40026",
+    "id": "16178764",
     "parent_id": "-1",
-    "budget_family_id": "5",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Дом",
+    "name": "Детские Курсы (ДК)",
     "is_hidden": "f",
-    "sort": "40026"
+    "sort": "16362265"
   },
   {
-    "id": "40047",
-    "parent_id": "-1",
-    "budget_family_id": "5",
+    "id": "16049219",
+    "parent_id": "16049218",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Автомобиль",
+    "name": "Продукты служащим (Верасок)",
     "is_hidden": "f",
-    "sort": "40047"
+    "sort": "16049219"
   },
   {
-    "id": "40011",
-    "parent_id": "40000",
-    "budget_family_id": "5",
+    "id": "16049220",
+    "parent_id": "16049218",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Проезд",
+    "name": "Материалы для ремонта (Верасок)",
     "is_hidden": "f",
-    "sort": "40011"
+    "sort": "16049220"
   },
   {
-    "id": "40019",
-    "parent_id": "40000",
-    "budget_family_id": "5",
+    "id": "16049222",
+    "parent_id": "16049218",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Разовые траты",
+    "name": "Услуги для центра (Верасок)",
     "is_hidden": "f",
-    "sort": "40019"
+    "sort": "16049222"
   },
   {
-    "id": "40023",
-    "parent_id": "40000",
-    "budget_family_id": "5",
+    "id": "16049223",
+    "parent_id": "16049218",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Интернет",
+    "name": "Покупка имущества (Верасок)",
     "is_hidden": "f",
-    "sort": "40023"
+    "sort": "16049223"
   },
   {
-    "id": "40024",
-    "parent_id": "40000",
-    "budget_family_id": "5",
+    "id": "16049224",
+    "parent_id": "16049221",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Сотовая связь",
+    "name": "Аренда лагеря (курсы)",
     "is_hidden": "f",
-    "sort": "40024"
+    "sort": "16049224"
   },
   {
-    "id": "40025",
-    "parent_id": "40000",
-    "budget_family_id": "5",
+    "id": "16049225",
+    "parent_id": "16049221",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "ДР, праздники, проставления",
+    "name": "Продукты (курсы)",
     "is_hidden": "f",
-    "sort": "40025"
+    "sort": "16049225"
   },
   {
-    "id": "40002",
-    "parent_id": "40001",
-    "budget_family_id": "5",
+    "id": "16049226",
+    "parent_id": "16049221",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Фрукты, Овощи",
+    "name": "Хоз быт (курсы)",
     "is_hidden": "f",
-    "sort": "40002"
+    "sort": "16049226"
   },
   {
-    "id": "40003",
-    "parent_id": "40001",
-    "budget_family_id": "5",
+    "id": "16049228",
+    "parent_id": "16049221",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Другая еда",
+    "name": "Расходы учителей",
     "is_hidden": "f",
-    "sort": "40003"
+    "sort": "16049228"
   },
   {
-    "id": "40009",
-    "parent_id": "40001",
-    "budget_family_id": "5",
+    "id": "16081449",
+    "parent_id": "16049221",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Мясо, колбасы",
+    "name": "Непредвиденные (курсы)",
     "is_hidden": "f",
-    "sort": "40009"
+    "sort": "16081449"
   },
   {
-    "id": "40010",
-    "parent_id": "40001",
-    "budget_family_id": "5",
+    "id": "16049255",
+    "parent_id": "16049223",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Обеды, перекусы",
+    "name": "Оборудование (Верасок)",
     "is_hidden": "f",
-    "sort": "40010"
+    "sort": "16049255"
   },
   {
-    "id": "40014",
-    "parent_id": "40001",
-    "budget_family_id": "5",
+    "id": "16049256",
+    "parent_id": "16049223",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Консервы",
+    "name": "Инвентарь (Верасок)",
     "is_hidden": "f",
-    "sort": "40014"
+    "sort": "16049256"
   },
   {
-    "id": "40015",
-    "parent_id": "40001",
-    "budget_family_id": "5",
+    "id": "16049231",
+    "parent_id": "16049227",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Кчаю, Сладкое, хлеб",
+    "name": "Комиссии банков (ИП)",
     "is_hidden": "f",
-    "sort": "40015"
+    "sort": "16049231"
   },
   {
-    "id": "40016",
-    "parent_id": "40001",
-    "budget_family_id": "5",
+    "id": "16049233",
+    "parent_id": "16049227",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Молочное",
+    "name": "Налоги (ИП)",
     "is_hidden": "f",
-    "sort": "40016"
+    "sort": "16049233"
   },
   {
-    "id": "40018",
-    "parent_id": "40001",
-    "budget_family_id": "5",
+    "id": "16049229",
+    "parent_id": "16049228",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Спиртное",
+    "name": "Билеты (учителя)",
     "is_hidden": "f",
-    "sort": "40018"
+    "sort": "16049229"
   },
   {
-    "id": "40006",
-    "parent_id": "40005",
-    "budget_family_id": "5",
+    "id": "16049230",
+    "parent_id": "16049228",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Обувь",
+    "name": "Аренда жилья (учителя)",
     "is_hidden": "f",
-    "sort": "40006"
+    "sort": "16049230"
   },
   {
-    "id": "40008",
-    "parent_id": "40005",
-    "budget_family_id": "5",
+    "id": "16189363",
+    "parent_id": "16178764",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Другая одежда",
+    "name": "Продукты и хозбыт (ДК)",
     "is_hidden": "f",
-    "sort": "40008"
+    "sort": "16189363"
   },
   {
-    "id": "40013",
-    "parent_id": "40012",
-    "budget_family_id": "5",
+    "id": "16189366",
+    "parent_id": "16178764",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Аптека",
+    "name": "Аренда помещения (ДК)",
     "is_hidden": "f",
-    "sort": "40013"
+    "sort": "16189366"
   },
   {
-    "id": "40020",
-    "parent_id": "40012",
-    "budget_family_id": "5",
+    "id": "16189367",
+    "parent_id": "16178764",
+    "budget_family_id": "433906",
     "type": "3",
-    "name": "Анализы",
+    "name": "Расходы учителя (ДК)",
     "is_hidden": "f",
-    "sort": "40020"
-  },
-  {
-    "id": "40021",
-    "parent_id": "40012",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Консультации",
-    "is_hidden": "f",
-    "sort": "40021"
-  },
-  {
-    "id": "40022",
-    "parent_id": "40012",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Другая медицина",
-    "is_hidden": "f",
-    "sort": "40022"
-  },
-  {
-    "id": "40017",
-    "parent_id": "40026",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Хозтовары",
-    "is_hidden": "f",
-    "sort": "40017"
-  },
-  {
-    "id": "40027",
-    "parent_id": "40026",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Квартплата",
-    "is_hidden": "f",
-    "sort": "40027"
-  },
-  {
-    "id": "40028",
-    "parent_id": "40026",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Коммунальн. платежи",
-    "is_hidden": "f",
-    "sort": "40028"
-  },
-  {
-    "id": "40029",
-    "parent_id": "40026",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Ребенок",
-    "is_hidden": "f",
-    "sort": "40029"
-  },
-  {
-    "id": "40039",
-    "parent_id": "40026",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Животные",
-    "is_hidden": "f",
-    "sort": "40039"
-  },
-  {
-    "id": "40555",
-    "parent_id": "40026",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Родителям",
-    "is_hidden": "f",
-    "sort": "40555"
-  },
-  {
-    "id": "41060",
-    "parent_id": "40026",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Дача, участок",
-    "is_hidden": "f",
-    "sort": "41060"
-  },
-  {
-    "id": "40046",
-    "parent_id": "40047",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Другие авто. расходы",
-    "is_hidden": "f",
-    "sort": "40046"
-  },
-  {
-    "id": "40049",
-    "parent_id": "40047",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Бензин",
-    "is_hidden": "f",
-    "sort": "40049"
-  },
-  {
-    "id": "40050",
-    "parent_id": "40047",
-    "budget_family_id": "5",
-    "type": "3",
-    "name": "Запчасти",
-    "is_hidden": "f",
-    "sort": "40050"
+    "sort": "16189367"
   }
 ]
