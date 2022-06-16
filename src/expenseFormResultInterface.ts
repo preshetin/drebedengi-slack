@@ -1,3 +1,5 @@
+// Auto-generated at https://app.quicktype.io/ 
+
 export interface ExpenseFormResult {
   sum: Sum;
   currencyId: CurrencyID;

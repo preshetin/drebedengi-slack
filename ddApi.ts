@@ -5,6 +5,8 @@ import demoApiCurrencies from "./dd_cache/demo_api/currencies.json";
 import vipassanaApiCurrencies from "./dd_cache/vipassana_api/currencies.json";
 import demoApiPlaces from "./dd_cache/demo_api/places.json";
 import vipassanaApiPlaces from "./dd_cache/vipassana_api/places.json";
+import demoApiSources from './dd_cache/demo_api/sources.json'
+import vipassanaApiSources from './dd_cache/vipassana_api/sources.json'
 
 let categories;
 switch (process.env.DREBEDENGI_API_ID) {
@@ -33,6 +35,16 @@ switch (process.env.DREBEDENGI_API_ID) {
     break;
   case "vipassana_api":
     places = vipassanaApiPlaces;
+    break;
+}
+
+let sources;
+switch (process.env.DREBEDENGI_API_ID) {
+  case "demo_api":
+    sources = demoApiSources;
+    break;
+  case "vipassana_api":
+    sources = vipassanaApiSources;
     break;
 }
 
@@ -65,4 +77,13 @@ const getPlaceList = async () => {
   }
 };
 
-export { getCategoryList, getCurrencyList, getPlaceList };
+const getSourceList = async () => {
+  if (ENABLE_CACHE === "yes") {
+    console.log("Sources FROM CACHE");
+    return sources;
+  } else {
+    return await ddClient.getSourceList();
+  }
+};
+
+export { getCategoryList, getCurrencyList, getPlaceList, getSourceList };

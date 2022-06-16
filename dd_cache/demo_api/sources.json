@@ -1,0 +1,56 @@
+[
+    {
+      "id": "40035",
+      "parent_id": "-1",
+      "budget_family_id": "5",
+      "type": "2",
+      "name": "\\\"ООО\\\" Оптима",
+      "is_hidden": "t",
+      "sort": "40035"
+    },
+    {
+      "id": "40036",
+      "parent_id": "-1",
+      "budget_family_id": "5",
+      "type": "2",
+      "name": "Фазерлинк",
+      "is_hidden": "f",
+      "sort": "40036"
+    },
+    {
+      "id": "40037",
+      "parent_id": "-1",
+      "budget_family_id": "5",
+      "type": "2",
+      "name": "Консультации Светы",
+      "is_hidden": "f",
+      "sort": "40037"
+    },
+    {
+      "id": "40038",
+      "parent_id": "-1",
+      "budget_family_id": "5",
+      "type": "2",
+      "name": "Другие источники",
+      "is_hidden": "f",
+      "sort": "40038"
+    },
+    {
+      "id": "40041",
+      "parent_id": "-1",
+      "budget_family_id": "5",
+      "type": "2",
+      "name": "Бизнес папы",
+      "is_hidden": "t",
+      "sort": "40041"
+    },
+    {
+      "id": "40042",
+      "parent_id": "-1",
+      "budget_family_id": "5",
+      "type": "2",
+      "name": "Банковские проценты",
+      "is_hidden": "f",
+      "sort": "40042"
+    }
+  ]
