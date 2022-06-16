@@ -18,21 +18,38 @@ export async function incomeMessage(
   const place = values.placeId.placeId.selected_option.text.text;
 
   const commentText = values.comment.comment.value
-    ? `, комментарий "${values.comment.comment.value}"`
+    ? `Комментарий:\n${values.comment.comment.value}`
     : "";
 
   const recordDateText = values.recordDate.recordDate.selected_date
-    ? ", дата:" + values.recordDate.recordDate.selected_date
+    ? "Дата: " + values.recordDate.recordDate.selected_date
     : "";
 
+    let detailsText = '';
+    if (commentText === '' && recordDateText === '') {
+      // do nothing
+    } else {
+      detailsText += '```'
+      if (commentText !== '') {
+        detailsText += commentText;
+      }
+      if (recordDateText !== '') {
+        detailsText += '\n';
+        detailsText += recordDateText;
+      }
+      detailsText += '```'
+    }
+
+    // +1000 RUB на _Сбербанк_. (источник _Консультации Светы_), ввел(а) preshetin ```Комментарий:\nПеревод по СБП. ФИО отправителя: Алексей Сергеевич Г.\nДата: 2022-06-15```
+
   return {
-    text: `+${sum} ${currency} на ${place} (источник ${source})${commentText}${recordDateText}, ввел(а) <@${user}>`,
+    text: `+${sum} ${currency} на ${place} (источник ${source}), ввел(а) <@${user}>`,
     blocks: [
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `+${sum} ${currency} на _${place}_ (источник _${source}_)${commentText}${recordDateText}, ввел(а) <@${user}>`,
+          text: `+${sum} ${currency} на _${place}_ (источник _${source}_), ввел(а) <@${user}> ${detailsText}`,
         },
       },
     ],
