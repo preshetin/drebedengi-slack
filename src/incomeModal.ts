@@ -208,7 +208,7 @@ function buildCategoriesOptions(categories: any[]): any[] {
   }));
 }
 
-function buildSourcesOptions( sources: any[]): any[] {
+function buildSourcesOptions(sources: any[]): any[] {
   return sources.map((source) => ({
     text: {
       type: "plain_text",

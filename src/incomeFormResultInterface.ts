@@ -1,11 +1,11 @@
 // Auto-generated at https://app.quicktype.io/
 
 export default interface IncomeFormResult {
-  sum:        Sum;
+  sum: Sum;
   currencyId: CurrencyID;
-  placeId:    PlaceID;
-  sourceId:   SourceID;
-  comment:    IncomeFormResultComment;
+  placeId: PlaceID;
+  sourceId: SourceID;
+  comment: IncomeFormResultComment;
   recordDate: IncomeFormResultRecordDate;
 }
 
@@ -14,7 +14,7 @@ export interface IncomeFormResultComment {
 }
 
 export interface SumClass {
-  type:  string;
+  type: string;
   value: string;
 }
 
@@ -23,18 +23,18 @@ export interface CurrencyID {
 }
 
 export interface ID {
-  type:            string;
+  type: string;
   selected_option: SelectedOption;
 }
 
 export interface SelectedOption {
-  text:  Text;
+  text: Text;
   value: string;
 }
 
 export interface Text {
-  type:  string;
-  text:  string;
+  type: string;
+  text: string;
   emoji: boolean;
 }
 
@@ -47,7 +47,7 @@ export interface IncomeFormResultRecordDate {
 }
 
 export interface RecordDateRecordDate {
-  type:          string;
+  type: string;
   selected_date: null | string;
 }
 

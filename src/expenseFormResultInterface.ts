@@ -1,4 +1,4 @@
-// Auto-generated at https://app.quicktype.io/ 
+// Auto-generated at https://app.quicktype.io/
 
 export interface ExpenseFormResult {
   sum: Sum;

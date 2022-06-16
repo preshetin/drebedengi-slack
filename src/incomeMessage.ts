@@ -11,17 +11,18 @@ export async function incomeMessage(
   values: IncomeFormResult,
   user: string
 ): Promise<MessageBlocks> {
-
   const sum = values.sum.sum.value;
 
   const currency = values.currencyId.currencyId.selected_option.text.text;
   const source = values.sourceId.sourceId.selected_option.text.text;
   const place = values.placeId.placeId.selected_option.text.text;
 
-  const commentText = values.comment.comment.value ? `, комментарий "${values.comment.comment.value}"` : '';
+  const commentText = values.comment.comment.value
+    ? `, комментарий "${values.comment.comment.value}"`
+    : "";
 
   const recordDateText = values.recordDate.recordDate.selected_date
-    ? ', дата:' + values.recordDate.recordDate.selected_date
+    ? ", дата:" + values.recordDate.recordDate.selected_date
     : "";
 
   return {

@@ -1,47 +1,47 @@
 [
-    {
-      "id": "16049211",
-      "parent_id": "-1",
-      "budget_family_id": "433906",
-      "type": "2",
-      "name": "Дана курс - 10 дней",
-      "is_hidden": "f",
-      "sort": "16049211"
-    },
-    {
-      "id": "16049212",
-      "parent_id": "-1",
-      "budget_family_id": "433906",
-      "type": "2",
-      "name": "Дана курс - 3 дня",
-      "is_hidden": "f",
-      "sort": "16049212"
-    },
-    {
-      "id": "16049252",
-      "parent_id": "-1",
-      "budget_family_id": "433906",
-      "type": "2",
-      "name": "Дана курс - 1 день",
-      "is_hidden": "f",
-      "sort": "16049213"
-    },
-    {
-      "id": "16049213",
-      "parent_id": "-1",
-      "budget_family_id": "433906",
-      "type": "2",
-      "name": "Дана между курсами",
-      "is_hidden": "f",
-      "sort": "16049252"
-    },
-    {
-      "id": "16178763",
-      "parent_id": "-1",
-      "budget_family_id": "433906",
-      "type": "2",
-      "name": "Дана Детские курсы",
-      "is_hidden": "f",
-      "sort": "16178763"
-    }
-  ]
+  {
+    "id": "16049211",
+    "parent_id": "-1",
+    "budget_family_id": "433906",
+    "type": "2",
+    "name": "Дана курс - 10 дней",
+    "is_hidden": "f",
+    "sort": "16049211"
+  },
+  {
+    "id": "16049212",
+    "parent_id": "-1",
+    "budget_family_id": "433906",
+    "type": "2",
+    "name": "Дана курс - 3 дня",
+    "is_hidden": "f",
+    "sort": "16049212"
+  },
+  {
+    "id": "16049252",
+    "parent_id": "-1",
+    "budget_family_id": "433906",
+    "type": "2",
+    "name": "Дана курс - 1 день",
+    "is_hidden": "f",
+    "sort": "16049213"
+  },
+  {
+    "id": "16049213",
+    "parent_id": "-1",
+    "budget_family_id": "433906",
+    "type": "2",
+    "name": "Дана между курсами",
+    "is_hidden": "f",
+    "sort": "16049252"
+  },
+  {
+    "id": "16178763",
+    "parent_id": "-1",
+    "budget_family_id": "433906",
+    "type": "2",
+    "name": "Дана Детские курсы",
+    "is_hidden": "f",
+    "sort": "16178763"
+  }
+]

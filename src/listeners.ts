@@ -7,38 +7,38 @@ import * as customMiddleware from "./customMiddleware";
 import sayBalanceMessage from "./sayBalanceMessage";
 import { ExpenseFormResult } from "./expenseFormResultInterface";
 import IncomeFormResult from "./incomeFormResultInterface";
-import { CreateExpenseParams, CreateIncomeParams } from "../ts-ddng-client/src/messages/setRecordList";
+import {
+  CreateExpenseParams,
+  CreateIncomeParams,
+} from "../ts-ddng-client/src/messages/setRecordList";
 import { expenseMessage } from "./expenseMessage";
 import { incomeMessage } from "./incomeMessage";
 
 export function registerListeners(app: App) {
   customMiddleware.enableAll(app);
 
-  app.command(
-    "/drebedengi",
-    async ({ body, client, logger, context, ack }) => {
-      await ack();
+  app.command("/drebedengi", async ({ body, client, logger, context, ack }) => {
+    await ack();
 
-      try {
-        switch (body.text.trim()) {
-          case 'expense':
-            await openExpenseModal(client, body.trigger_id);
-            break;
-          case 'income':
-            logger.info('income requested');
-            await openIncomeModal(client, body.trigger_id);
-            break;
-          default:
-            // propose to choose income or expense option
-        }
-      } catch (e) {
-        logger.error(
-          `Failed to publish a view for user: (response: ${JSON.stringify(e)})`,
-          e
-        );
+    try {
+      switch (body.text.trim()) {
+        case "expense":
+          await openExpenseModal(client, body.trigger_id);
+          break;
+        case "income":
+          logger.info("income requested");
+          await openIncomeModal(client, body.trigger_id);
+          break;
+        default:
+        // propose to choose income or expense option
       }
+    } catch (e) {
+      logger.error(
+        `Failed to publish a view for user: (response: ${JSON.stringify(e)})`,
+        e
+      );
     }
-  );
+  });
 
   // app.message('foo', async ({body, message}) => {
   //   console.log('22222')
@@ -148,7 +148,7 @@ export function registerListeners(app: App) {
     try {
       const values = body.view.state.values as unknown as IncomeFormResult;
 
-      logger.info('values of IncomeFormResult', JSON.stringify(values));
+      logger.info("values of IncomeFormResult", JSON.stringify(values));
 
       if (values && values.sum && isNaN(Number(values.sum.sum.value))) {
         await ack({
@@ -175,7 +175,9 @@ export function registerListeners(app: App) {
         : body.user.id;
 
       const createIncomeParams: CreateIncomeParams = {
-        comment: values.comment.comment.value ? values.comment.comment.value : '',
+        comment: values.comment.comment.value
+          ? values.comment.comment.value
+          : "",
         sum: Math.floor(+values.sum.sum.value * 100),
         placeId: +values.placeId.placeId.selected_option.value,
         sourceId: +values.sourceId.sourceId.selected_option.value,
@@ -205,5 +207,4 @@ export function registerListeners(app: App) {
       );
     }
   });
-  
 }

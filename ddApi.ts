@@ -5,8 +5,8 @@ import demoApiCurrencies from "./dd_cache/demo_api/currencies.json";
 import vipassanaApiCurrencies from "./dd_cache/vipassana_api/currencies.json";
 import demoApiPlaces from "./dd_cache/demo_api/places.json";
 import vipassanaApiPlaces from "./dd_cache/vipassana_api/places.json";
-import demoApiSources from './dd_cache/demo_api/sources.json'
-import vipassanaApiSources from './dd_cache/vipassana_api/sources.json'
+import demoApiSources from "./dd_cache/demo_api/sources.json";
+import vipassanaApiSources from "./dd_cache/vipassana_api/sources.json";
 
 let categories;
 switch (process.env.DREBEDENGI_API_ID) {
