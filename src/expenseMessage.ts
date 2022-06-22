@@ -41,41 +41,8 @@ export async function expenseMessage(
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `\`Новая Трата\`\n\n *Cумма:* ${sum} ${currency} \n *Категория:* ${category} \n *Комментарий:* ${comment} \n *Кошелек:* ${place} | добавил(а) <@${user}>  \n *Дата:* ${recordDate}  \n`,
+          text: `\`Новая Трата\`\n*Cумма:* ${sum} ${currency} \n *Категория:* ${category} \n *Комментарий:* ${comment} \n *Кошелек:* ${place} | добавил(а) <@${user}>  \n *Дата:* ${recordDate}  \n`,
         },
-      },
-      {
-        type: "divider",
-      },
-      {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: "Посмотреть на сайте Дребеденег (drebedengi.ru)",
-        },
-        accessory: {
-          type: "button",
-          text: {
-            type: "plain_text",
-            text: "Открыть",
-            emoji: true,
-          },
-          value: "url_click",
-          url: "https://www.drebedengi.ru/?module=v2_homeBuhPrivate",
-          action_id: "url_click",
-        },
-      },
-      {
-        type: "divider",
-      },
-      {
-        type: "context",
-        elements: [
-          {
-            type: "mrkdwn",
-            text: ":bulb: Чтобы внести трату, введите `/drebedengi-expense` строке чата и нажмите _Ввод_ / _Enter_. Или нажмите на плюсик под строкой чата и начните вводить _Внести расход_",
-          },
-        ],
       },
     ],
   };
