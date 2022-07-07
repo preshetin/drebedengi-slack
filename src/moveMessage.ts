@@ -50,7 +50,7 @@ export async function moveMessage(
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `Перемещение ${sum} ${currency} из места хранения ${fromPlace} в место хранания ${place}, ввел(а) <@${user}>`,
+          text: `Перемещение ${sum} ${currency} из места хранения ${fromPlace} в место хранания ${place}, ввел(а) <@${user}>${commentText}`,
         },
       },
     ],
