@@ -10,9 +10,13 @@ import IncomeFormResult from "./incomeFormResultInterface";
 import {
   CreateExpenseParams,
   CreateIncomeParams,
+  CreateMoveParams,
 } from "../ts-ddng-client/src/messages/setRecordList";
 import { expenseMessage } from "./expenseMessage";
 import { incomeMessage } from "./incomeMessage";
+import { openMoveModal } from "./moveModal";
+import { moveMessage } from "./moveMessage";
+import { MoveFormResult } from "./moveFormResultInterface";
 
 export function registerListeners(app: App) {
   customMiddleware.enableAll(app);
@@ -28,6 +32,9 @@ export function registerListeners(app: App) {
         case "income":
           logger.info("income requested");
           await openIncomeModal(client, body.trigger_id);
+          break;
+        case "move":
+          await openMoveModal(client, body.trigger_id);
           break;
         default:
         // propose to choose income or expense option
@@ -207,4 +214,71 @@ export function registerListeners(app: App) {
       );
     }
   });
+
+  app.view("move-modal-submit", async ({ client, body, ack, logger }) => {
+    try {
+      const values = body.view.state.values as unknown as MoveFormResult;
+
+      logger.info("values of MoveFormResult", JSON.stringify(values));
+
+      if (values && values.sum && isNaN(Number(values.sum.sum.value))) {
+        await ack({
+          response_action: "errors",
+          errors: {
+            sum: "Введите число. Для разделения копеек ипользуйте точку",
+          },
+        });
+        return;
+      }
+
+      if (+values.sum.sum.value <= 0) {
+        await ack({
+          response_action: "errors",
+          errors: { sum: "Число должно быть положительное" },
+        });
+        return;
+      }
+
+      await ack({ response_action: "clear" });
+
+      const channel = process.env.NOTIFICATION_CHANNEL_ID
+        ? process.env.NOTIFICATION_CHANNEL_ID
+        : body.user.id;
+
+      const createMoveParams: CreateMoveParams = {
+        comment: values.comment.comment.value
+          ? values.comment.comment.value
+          : "",
+        sum: Math.floor(+values.sum.sum.value * 100),
+        placeId: +values.placeId.placeId.selected_option.value,
+        fromPlaceId: +values.fromPlaceId.fromPlaceId.selected_option.value,
+        currencyId: +values.currencyId.currencyId.selected_option.value,
+      };
+      
+
+      if (typeof values.recordDate.recordDate.selected_date === "string") {
+        createMoveParams.dateTime =
+          values.recordDate.recordDate.selected_date;
+      }
+
+      const createMoveResult = await ddClient.createMove(
+        createMoveParams
+      );
+      logger.info("create Move Result", createMoveResult);
+
+      const mes = await moveMessage(values, body.user.id);
+
+      await client.chat.postMessage({
+        channel,
+        ...mes,
+      });
+    } catch (e) {
+      logger.error(
+        `Failed to handle modal submit (response: ${JSON.stringify(e)})`,
+        e
+      );
+    }
+  });
+
 }
+
