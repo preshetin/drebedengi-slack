@@ -85,7 +85,7 @@ export async function openMoveModal(client: WebClient, triggerId: string) {
           },
           label: {
             type: "plain_text",
-            text: "Кошелек / место хранения, откуда",
+            text: "Место хранения, откуда",
             emoji: true,
           },
         },
@@ -104,7 +104,7 @@ export async function openMoveModal(client: WebClient, triggerId: string) {
           },
           label: {
             type: "plain_text",
-            text: "Кошелек / место хранения, куда",
+            text: "Место хранения, куда",
             emoji: true,
           },
         },
