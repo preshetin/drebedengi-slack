@@ -44,13 +44,13 @@ export async function moveMessage(
     // +1000 RUB на _Сбербанк_. (источник _Консультации Светы_), ввел(а) preshetin ```Комментарий:\nПеревод по СБП. ФИО отправителя: Алексей Сергеевич Г.\nДата: 2022-06-15```
 
   return {
-    text: `Перемещение ${sum} ${currency} из места хранения ${fromPlace} в место хранания ${place}, ввел(а) <@${user}>`,
+    text: `Перемещение ${sum} ${currency} из места хранения ${fromPlace} в место хранения ${place}, ввел(а) <@${user}>`,
     blocks: [
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `Перемещение ${sum} ${currency} из места хранения ${fromPlace} в место хранания ${place}, ввел(а) <@${user}> ${detailsText}`,
+          text: `Перемещение ${sum} ${currency} из места хранения ${fromPlace} в место хранения ${place}, ввел(а) <@${user}> ${detailsText}`,
         },
       },
     ],
