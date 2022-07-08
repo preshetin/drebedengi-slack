@@ -21,6 +21,14 @@ export async function hello(event, context, callback) {
   //   const createExpenseResult = await client.createExpense(createExpenseParams)
   //   console.log('createExenseResult', createExpenseResult)
 
+
+  // const res = await ddClient.createMove({
+  //   fromPlaceId: 111,
+  //   placeId: 222,
+  //   sum: 123,
+  //   currencyId: 123
+  // })
+
   await new Promise((resolve, reject) => setTimeout(resolve, 500));
 
   const response = {

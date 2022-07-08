@@ -6,6 +6,12 @@ features:
   bot_user:
     display_name: drebedengi-dev
     always_online: false
+  slash_commands:
+    - command: /drebedengi
+      url: https://zm4n2wtsy8.execute-api.us-east-1.amazonaws.com/prod/slack/events
+      description: Записать операцию
+      usage_hint: "[income|expense|move]"
+      should_escape: false
 oauth_config:
   scopes:
     bot:
@@ -15,6 +21,7 @@ oauth_config:
       - groups:history
       - im:history
       - mpim:history
+      - commands
 settings:
   event_subscriptions:
     request_url: http://d5ac-54-159-219-217.ngrok.io/slack/events
@@ -24,6 +31,9 @@ settings:
       - message.groups
       - message.im
       - message.mpim
+  interactivity:
+    is_enabled: true
+    request_url: http://d5ac-54-159-219-217.ngrok.io/slack/events
   org_deploy_enabled: false
   socket_mode_enabled: false
   token_rotation_enabled: false
