@@ -4,7 +4,7 @@ import axios from "axios";
 import ddClient from "../ddClient";
 
 export async function openExpenseModal(client: WebClient, triggerId: string) {
-  const categories = await ddApi.getCategoryList();
+  const categories = await ddClient.getCategoryList();
   const categoriesOptions = buildCategoriesOptions(categories);
 
   const places = await ddApi.getPlaceList();
