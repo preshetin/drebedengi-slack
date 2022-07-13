@@ -3,6 +3,7 @@ import * as ddApi from "../ddApi";
 import axios from "axios";
 import ddClient from "../ddClient";
 
+
 export async function openExpenseModal(client: WebClient, triggerId: string) {
   const categories = await ddApi.getCategoryList();
   const categoriesOptions = buildCategoriesOptions(categories);
@@ -143,6 +144,33 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
           label: {
             type: "plain_text",
             text: "Дата операции",
+            emoji: true,
+          },
+          optional: true,
+        },
+        {
+          type: 'divider'
+        },
+        {
+          type: "input",
+          block_id: "ignoreNotification",
+          element: {
+            type: "checkboxes",
+            options: [
+              {
+                text: {
+                  type: "plain_text",
+                  text: "Не отправлять уведомоление",
+                  emoji: true,
+                },
+                value: "yes",
+              },
+            ],
+            action_id: "ignoreNotification",
+          },
+          label: {
+            type: "plain_text",
+            text: "Уведомление в Slack",
             emoji: true,
           },
           optional: true,

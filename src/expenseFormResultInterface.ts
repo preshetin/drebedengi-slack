@@ -7,6 +7,7 @@ export interface ExpenseFormResult {
   comment: ExpenseFormResultComment;
   categoryId: CategoryID;
   recordDate: ExpenseFormResultRecordDate;
+  ignoreNotification: ExpenseFormResultIgnoreNotification;
 }
 
 export interface CategoryID {
@@ -40,6 +41,15 @@ export interface SumClass {
 
 export interface CurrencyID {
   currencyId: ID;
+}
+
+export interface ExpenseFormResultIgnoreNotification {
+  ignoreNotification: IgnoreNotificationIgnoreNotification;
+}
+
+export interface IgnoreNotificationIgnoreNotification {
+  type: string;
+  selected_options: SelectedOption[];
 }
 
 export interface PlaceID {

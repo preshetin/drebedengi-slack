@@ -93,6 +93,8 @@ export function registerListeners(app: App) {
     try {
       const values = body.view.state.values as unknown as ExpenseFormResult;
 
+      console.log("modal result", JSON.stringify(values));
+
       if (values && values.sum && isNaN(Number(values.sum.sum.value))) {
         await ack({
           response_action: "errors",
@@ -139,10 +141,17 @@ export function registerListeners(app: App) {
 
       const mes = await expenseMessage(values, body.user.id);
 
-      await client.chat.postMessage({
-        channel,
-        ...mes,
-      });
+      if (
+        values.ignoreNotification.ignoreNotification.selected_options.length
+      ) {
+        await client.chat.postEphemeral({
+          channel,
+          user: body.user.id,
+          text: 'Трата добавлена'
+        });
+      } else {
+        await client.chat.postMessage({ channel, ...mes });
+      }
     } catch (e) {
       logger.error(
         `Failed to handle modal submit (response: ${JSON.stringify(e)})`,
@@ -254,16 +263,12 @@ export function registerListeners(app: App) {
         fromPlaceId: +values.fromPlaceId.fromPlaceId.selected_option.value,
         currencyId: +values.currencyId.currencyId.selected_option.value,
       };
-      
 
       if (typeof values.recordDate.recordDate.selected_date === "string") {
-        createMoveParams.dateTime =
-          values.recordDate.recordDate.selected_date;
+        createMoveParams.dateTime = values.recordDate.recordDate.selected_date;
       }
 
-      const createMoveResult = await ddClient.createMove(
-        createMoveParams
-      );
+      const createMoveResult = await ddClient.createMove(createMoveParams);
       logger.info("create Move Result", createMoveResult);
 
       const mes = await moveMessage(values, body.user.id);
@@ -279,6 +284,4 @@ export function registerListeners(app: App) {
       );
     }
   });
-
 }
-
