@@ -3,7 +3,6 @@ import * as ddApi from "../ddApi";
 import axios from "axios";
 import ddClient from "../ddClient";
 
-
 export async function openExpenseModal(client: WebClient, triggerId: string) {
   const categories = await ddApi.getCategoryList();
   const categoriesOptions = buildCategoriesOptions(categories);
@@ -149,7 +148,7 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
           optional: true,
         },
         {
-          type: 'divider'
+          type: "divider",
         },
         {
           type: "input",

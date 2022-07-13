@@ -21,7 +21,6 @@ export async function hello(event, context, callback) {
   //   const createExpenseResult = await client.createExpense(createExpenseParams)
   //   console.log('createExenseResult', createExpenseResult)
 
-
   // const res = await ddClient.createMove({
   //   fromPlaceId: 111,
   //   placeId: 222,

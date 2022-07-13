@@ -1,12 +1,12 @@
 // Auto-generated at https://app.quicktype.io/
 
 export interface MoveFormResult {
-  sum:         Sum;
-  currencyId:  CurrencyID;
+  sum: Sum;
+  currencyId: CurrencyID;
   fromPlaceId: FromPlaceID;
-  placeId:     PlaceID;
-  comment:     MoveFormResultComment;
-  recordDate:  MoveFormResultRecordDate;
+  placeId: PlaceID;
+  comment: MoveFormResultComment;
+  recordDate: MoveFormResultRecordDate;
 }
 
 export interface MoveFormResultComment {
@@ -14,7 +14,7 @@ export interface MoveFormResultComment {
 }
 
 export interface SumClass {
-  type:  string;
+  type: string;
   value: string;
 }
 
@@ -23,18 +23,18 @@ export interface CurrencyID {
 }
 
 export interface ID {
-  type:            string;
+  type: string;
   selected_option: SelectedOption;
 }
 
 export interface SelectedOption {
-  text:  Text;
+  text: Text;
   value: string;
 }
 
 export interface Text {
-  type:  string;
-  text:  string;
+  type: string;
+  text: string;
   emoji: boolean;
 }
 
@@ -51,7 +51,7 @@ export interface MoveFormResultRecordDate {
 }
 
 export interface RecordDateRecordDate {
-  type:          string;
+  type: string;
   selected_date: null | string;
 }
 

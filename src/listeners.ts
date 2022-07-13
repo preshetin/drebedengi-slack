@@ -147,7 +147,7 @@ export function registerListeners(app: App) {
         await client.chat.postEphemeral({
           channel,
           user: body.user.id,
-          text: 'Трата добавлена'
+          text: "Трата добавлена",
         });
       } else {
         await client.chat.postMessage({ channel, ...mes });

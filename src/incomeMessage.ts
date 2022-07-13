@@ -25,22 +25,22 @@ export async function incomeMessage(
     ? "Дата: " + values.recordDate.recordDate.selected_date
     : "";
 
-    let detailsText = '';
-//    if (commentText === '' && recordDateText === '') {
-//      // do nothing
-//    } else {
-//      detailsText += '```'
-//      if (commentText !== '') {
-//        detailsText += commentText;
-//      }
-//      if (recordDateText !== '') {
-//        detailsText += '\n';
-//        detailsText += recordDateText;
-//      }
-//      detailsText += '```'
-//    }
+  let detailsText = "";
+  //    if (commentText === '' && recordDateText === '') {
+  //      // do nothing
+  //    } else {
+  //      detailsText += '```'
+  //      if (commentText !== '') {
+  //        detailsText += commentText;
+  //      }
+  //      if (recordDateText !== '') {
+  //        detailsText += '\n';
+  //        detailsText += recordDateText;
+  //      }
+  //      detailsText += '```'
+  //    }
 
-    // +1000 RUB на _Сбербанк_. (источник _Консультации Светы_), ввел(а) preshetin ```Комментарий:\nПеревод по СБП. ФИО отправителя: Алексей Сергеевич Г.\nДата: 2022-06-15```
+  // +1000 RUB на _Сбербанк_. (источник _Консультации Светы_), ввел(а) preshetin ```Комментарий:\nПеревод по СБП. ФИО отправителя: Алексей Сергеевич Г.\nДата: 2022-06-15```
 
   return {
     text: `+${sum} ${currency} в место хранания ${place} (источник ${source}), ввел(а) <@${user}>`,
