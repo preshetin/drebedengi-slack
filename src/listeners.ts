@@ -70,7 +70,6 @@ export function registerListeners(app: App) {
     { type: "block_actions", action_id: "recordType" },
     async ({ ack }) => {
       await ack();
-      console.log("UUUUPDATTTTTTING>.......");
     }
   );
 
@@ -92,8 +91,6 @@ export function registerListeners(app: App) {
   app.view("expense-modal-submit", async ({ client, body, ack, logger }) => {
     try {
       const values = body.view.state.values as unknown as ExpenseFormResult;
-
-      console.log("modal result", JSON.stringify(values));
 
       if (values && values.sum && isNaN(Number(values.sum.sum.value))) {
         await ack({
@@ -137,7 +134,6 @@ export function registerListeners(app: App) {
       const createExpenseResult = await ddClient.createExpense(
         createExpenseParams
       );
-      console.log("createExpenseResult", createExpenseResult);
 
       const mes = await expenseMessage(values, body.user.id);
 
