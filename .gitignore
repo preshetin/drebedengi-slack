@@ -8,6 +8,5 @@ jspm_packages
 .env
 
 # A submodule from https://github.com/preshetin/ts-ddng-client is supposted to be placed here
-ts-ddng-client
 *.swp
 *.swo
