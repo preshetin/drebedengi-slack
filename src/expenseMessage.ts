@@ -1,5 +1,3 @@
-import ddClient from "../ddClient";
-import * as ddApi from "../ddApi";
 import { ExpenseFormResult } from "./expenseFormResultInterface";
 
 interface MessageBlocks {
@@ -11,24 +9,17 @@ export async function expenseMessage(
   values: ExpenseFormResult,
   user: string
 ): Promise<MessageBlocks> {
-  const categories = await ddApi.getCategoryList();
-  const currencies = await ddApi.getCurrencyList();
-  const places = await ddApi.getPlaceList();
-
   const sum = values.sum.sum.value;
-  const comment = values.comment.comment.value;
 
-  const category = categories.find(
-    (category: { id: string }) =>
-      category.id === values.categoryId.categoryId.selected_option.value
-  )!.name;
-  const currency = currencies.find(
-    (currency: { id: string }) =>
-      currency.id === values.currencyId.currencyId.selected_option.value
-  )!.code;
-  const place = places.find(
-    (place) => place.id === +values.placeId.placeId.selected_option.value
-  )!.name;
+  const category = values.categoryId.categoryId.selected_option.text.text;
+  const currency = values.currencyId.currencyId.selected_option.text.text;
+  const place = values.placeId.placeId.selected_option.text.text;
+
+  const commentArr: string[] = [
+    values.comment.comment.value,
+    ...values.tags.tags.selected_options.map((item) => `\`[${item.text.text}]\``),
+  ];
+  const comment = commentArr.join(" ");
 
   const recordDate = values.recordDate.recordDate.selected_date
     ? values.recordDate.recordDate.selected_date

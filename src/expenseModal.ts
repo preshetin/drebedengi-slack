@@ -7,6 +7,9 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
   const categories = await ddClient.getCategoryList();
   const categoriesOptions = buildCategoriesOptions(categories);
 
+  const tags = await ddClient.getTagList();
+  const tagsOptions = buildTagsOptions(tags);
+
   const places = await ddApi.getPlaceList();
   const placesOptions = buildPlacesOptions(places);
 
@@ -131,6 +134,26 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
         },
         {
           type: "input",
+          block_id: "tags",
+          element: {
+            action_id: "tags",
+            type: "multi_static_select",
+            placeholder: {
+              type: "plain_text",
+              text: "Добавьте теги",
+              emoji: true,
+            },
+            options: tagsOptions,
+          },
+          label: {
+            type: "plain_text",
+            text: "Теги",
+            emoji: true,
+          },
+          optional: true,
+        },
+        {
+          type: "input",
           block_id: "recordDate",
           element: {
             action_id: "recordDate",
@@ -221,5 +244,15 @@ function buildCategoriesOptions(categories: any[]): any[] {
       text: category.name,
     },
     value: `${category.id}`,
+  }));
+}
+
+function buildTagsOptions(tags: any[]): any[] {
+  return tags.map((item) => ({
+    text: {
+      type: "plain_text",
+      text: item.name,
+    },
+    value: `${item.id}`,
   }));
 }

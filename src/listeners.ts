@@ -118,9 +118,17 @@ export function registerListeners(app: App) {
         ? process.env.NOTIFICATION_CHANNEL_ID
         : body.user.id;
 
+      const commentArr: string[] = [
+        values.comment.comment.value,
+        ...values.tags.tags.selected_options.map(
+          (item) => `[${item.text.text}]`
+        ),
+      ];
+      const comment = commentArr.join(" ");
+
       const createExpenseParams: CreateExpenseParams = {
         placeId: +values.placeId.placeId.selected_option.value,
-        comment: values.comment.comment.value,
+        comment,
         sum: Math.floor(+values.sum.sum.value * 100),
         currencyId: +values.currencyId.currencyId.selected_option.value,
         categoryId: +values.categoryId.categoryId.selected_option.value,

@@ -6,8 +6,9 @@ export interface ExpenseFormResult {
   placeId: PlaceID;
   comment: ExpenseFormResultComment;
   categoryId: CategoryID;
+  tags: Tags;
   recordDate: ExpenseFormResultRecordDate;
-  ignoreNotification: ExpenseFormResultIgnoreNotification;
+  ignoreNotification: IgnoreNotification;
 }
 
 export interface CategoryID {
@@ -43,11 +44,11 @@ export interface CurrencyID {
   currencyId: ID;
 }
 
-export interface ExpenseFormResultIgnoreNotification {
-  ignoreNotification: IgnoreNotificationIgnoreNotification;
+export interface IgnoreNotification {
+  ignoreNotification: TagsClass;
 }
 
-export interface IgnoreNotificationIgnoreNotification {
+export interface TagsClass {
   type: string;
   selected_options: SelectedOption[];
 }
@@ -67,4 +68,8 @@ export interface RecordDateRecordDate {
 
 export interface Sum {
   sum: SumClass;
+}
+
+export interface Tags {
+  tags: TagsClass;
 }

@@ -1,13 +1,11 @@
-import * as _ from "lodash";
 import ddClient from "./ddClient";
 import * as ddApi from "./ddApi";
 import { CreateExpenseParams } from "./ts-ddng-client/src/messages/setRecordList";
 
-// modern module syntax
 export async function hello(event, context, callback) {
   // const balances = await ddClient.getBalance({});
 
-  // const places = await ddClient.getPlaces();
+  const places = await ddClient.getPlaces();
   // const currencies = await ddClient.getCurrencyList();
   const categories = await ddApi.getCategoryList();
 
@@ -21,6 +19,12 @@ export async function hello(event, context, callback) {
   //   const createExpenseResult = await client.createExpense(createExpenseParams)
   //   console.log('createExenseResult', createExpenseResult)
 
+  //  const dadOperations = await ddClient.getOperations({
+  //    placeIds: [40032]
+  //  })
+
+  const tags = await ddClient.getTagList();
+
   // const res = await ddClient.createMove({
   //   fromPlaceId: 111,
   //   placeId: 222,
@@ -28,16 +32,14 @@ export async function hello(event, context, callback) {
   //   currencyId: 123
   // })
 
-  await new Promise((resolve, reject) => setTimeout(resolve, 500));
-
   const response = {
     statusCode: 200,
     body: JSON.stringify({
-      message: "Go 55 Serverless v1.0! Your function executed successfully!",
+      //dadOperations,
+      tags,
       // env: process.env.SLACK_SIGNING_SECRET,
       // places,
       // currencies,
-      categories,
       // balances,
       // input: event,
     }),
