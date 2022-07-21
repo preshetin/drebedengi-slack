@@ -1,5 +1,3 @@
-import ddClient from "../ddClient";
-import * as ddApi from "../ddApi";
 import IncomeFormResult from "./incomeFormResultInterface";
 
 interface MessageBlocks {
@@ -26,19 +24,19 @@ export async function incomeMessage(
     : "";
 
   let detailsText = "";
-  //    if (commentText === '' && recordDateText === '') {
-  //      // do nothing
-  //    } else {
-  //      detailsText += '```'
-  //      if (commentText !== '') {
-  //        detailsText += commentText;
-  //      }
-  //      if (recordDateText !== '') {
-  //        detailsText += '\n';
-  //        detailsText += recordDateText;
-  //      }
-  //      detailsText += '```'
-  //    }
+  if (commentText === '' && recordDateText === '') {
+    // do nothing
+  } else {
+    detailsText += '```'
+    if (commentText !== '') {
+      detailsText += commentText;
+    }
+    if (recordDateText !== '') {
+      detailsText += '\n';
+      detailsText += recordDateText;
+    }
+    detailsText += '```'
+  }
 
   // +1000 RUB на _Сбербанк_. (источник _Консультации Светы_), ввел(а) preshetin ```Комментарий:\nПеревод по СБП. ФИО отправителя: Алексей Сергеевич Г.\nДата: 2022-06-15```
 
