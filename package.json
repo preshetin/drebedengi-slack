@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "localtunnel": "^2.0.2",
     "prettier": "^2.7.0",
     "serverless": "^3.21.0",
     "serverless-offline": "^8.7.0",
