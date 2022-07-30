@@ -10,6 +10,7 @@
   "scripts": {
     "prettier": "prettier --write .",
     "dev": "serverless offline --noPrependStageInUrl",
+    "tunnel": "lt --port 3000",
     "deploy": "serverless deploy --stage prod --verbose"
   },
   "dependencies": {
