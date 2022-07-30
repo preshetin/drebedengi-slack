@@ -17,7 +17,9 @@ export async function expenseMessage(
 
   const commentArr: string[] = [
     values.comment.comment.value,
-    ...values.tags.tags.selected_options.map((item) => `\`[${item.text.text}]\``),
+    ...values.tags.tags.selected_options.map(
+      (item) => `\`[${item.text.text}]\``
+    ),
   ];
   const comment = commentArr.join(" ");
 

@@ -24,18 +24,18 @@ export async function incomeMessage(
     : "";
 
   let detailsText = "";
-  if (commentText === '' && recordDateText === '') {
+  if (commentText === "" && recordDateText === "") {
     // do nothing
   } else {
-    detailsText += '```'
-    if (commentText !== '') {
+    detailsText += "```";
+    if (commentText !== "") {
       detailsText += commentText;
     }
-    if (recordDateText !== '') {
-      detailsText += '\n';
+    if (recordDateText !== "") {
+      detailsText += "\n";
       detailsText += recordDateText;
     }
-    detailsText += '```'
+    detailsText += "```";
   }
 
   // +1000 RUB на _Сбербанк_. (источник _Консультации Светы_), ввел(а) preshetin ```Комментарий:\nПеревод по СБП. ФИО отправителя: Алексей Сергеевич Г.\nДата: 2022-06-15```
