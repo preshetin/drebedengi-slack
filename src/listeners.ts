@@ -1,7 +1,6 @@
 import { App } from "@slack/bolt";
 import { openExpenseModal } from "./expenseModal";
 import { openIncomeModal } from "./incomeModal";
-import * as simpleHomeTab from "./simpleHomeTab";
 import ddClient from "../ddClient";
 import * as customMiddleware from "./customMiddleware";
 import sayBalanceMessage from "./sayBalanceMessage";
@@ -120,6 +119,7 @@ export function registerListeners(app: App) {
 
       const commentArr: string[] = [
         values.comment.comment.value,
+        `[введено ${body.user.name}]`,
         ...values.tags.tags.selected_options.map(
           (item) => `[${item.text.text}]`
         ),
