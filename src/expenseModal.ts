@@ -1,7 +1,7 @@
 import { WebClient } from "@slack/web-api";
-import * as ddApi from "../ddApi";
+import * as ddApi from "./ddApi";
 import axios from "axios";
-import ddClient from "../ddClient";
+import ddClient from "./ddClient";
 
 export async function openExpenseModal(client: WebClient, triggerId: string) {
   const categories = await ddClient.getCategoryList();
@@ -226,7 +226,7 @@ function buildCurencyOptions(currencies: any[]): any[] {
 }
 
 function buildPlacesOptions(
-  places: import("../ts-ddng-client/src/messages/getPlaceList").Place[]
+  places: import("./ts-ddng-client/src/messages/getPlaceList").Place[]
 ): any[] {
   return places.map((place) => ({
     text: {

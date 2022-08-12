@@ -1,6 +1,6 @@
 import { WebClient } from "@slack/web-api";
-import * as ddApi from "../ddApi";
-import ddClient from "../ddClient";
+import * as ddApi from "./ddApi";
+import ddClient from "./ddClient";
 
 export async function openMoveModal(client: WebClient, triggerId: string) {
   const places = await ddClient.getPlaces();
@@ -160,7 +160,7 @@ function buildCurencyOptions(currencies: any[]): any[] {
 }
 
 function buildPlacesOptions(
-  places: import("../ts-ddng-client/src/messages/getPlaceList").Place[]
+  places: import("./ts-ddng-client/src/messages/getPlaceList").Place[]
 ): any[] {
   return places.map((place) => ({
     text: {

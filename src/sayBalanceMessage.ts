@@ -1,9 +1,9 @@
 import { SayFn } from "@slack/bolt";
-import ddClient from "../ddClient";
+import ddClient from "./ddClient";
 import {
   GetBalanceParams,
   GetBalanceResult,
-} from "../ts-ddng-client/src/messages/getBalance";
+} from "./ts-ddng-client/src/messages/getBalance";
 
 async function sayBalanceMessage(say: SayFn) {
   const balances = await ddClient.getBalance({});

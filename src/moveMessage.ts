@@ -1,5 +1,5 @@
-import ddClient from "../ddClient";
-import * as ddApi from "../ddApi";
+import ddClient from "./ddClient";
+import * as ddApi from "./ddApi";
 import { MoveFormResult } from "./moveFormResultInterface";
 
 interface MessageBlocks {

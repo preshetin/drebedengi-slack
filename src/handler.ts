@@ -1,6 +1,5 @@
 import ddClient from "./ddClient";
 import * as ddApi from "./ddApi";
-import { CreateExpenseParams } from "./ts-ddng-client/src/messages/setRecordList";
 
 export async function hello(event, context, callback) {
   // const balances = await ddClient.getBalance({});
@@ -8,16 +7,6 @@ export async function hello(event, context, callback) {
   const places = await ddClient.getPlaces();
   // const currencies = await ddClient.getCurrencyList();
   const categories = await ddApi.getCategoryList();
-
-  //   const createExpenseParams: CreateExpenseParams = {
-  //       placeId: 40034,
-  //       comment: 'cool drug ' + (new Date()).toISOString(),
-  //       sum: 322,
-  //       currencyId: 17,
-  //       categoryId: 40012
-  //   }
-  //   const createExpenseResult = await client.createExpense(createExpenseParams)
-  //   console.log('createExenseResult', createExpenseResult)
 
   //  const dadOperations = await ddClient.getOperations({
   //    placeIds: [40032]

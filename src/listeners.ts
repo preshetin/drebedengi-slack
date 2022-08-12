@@ -1,7 +1,7 @@
 import { App } from "@slack/bolt";
 import { openExpenseModal } from "./expenseModal";
 import { openIncomeModal } from "./incomeModal";
-import ddClient from "../ddClient";
+import ddClient from "./ddClient";
 import * as customMiddleware from "./customMiddleware";
 import sayBalanceMessage from "./sayBalanceMessage";
 import { ExpenseFormResult } from "./expenseFormResultInterface";
@@ -10,7 +10,7 @@ import {
   CreateExpenseParams,
   CreateIncomeParams,
   CreateMoveParams,
-} from "../ts-ddng-client/src/messages/setRecordList";
+} from "./ts-ddng-client/src/messages/setRecordList";
 import { expenseMessage } from "./expenseMessage";
 import { incomeMessage } from "./incomeMessage";
 import { openMoveModal } from "./moveModal";

@@ -9,11 +9,11 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs16.x
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/handler.hello
     events:
       - http: get /hello
   slack:
