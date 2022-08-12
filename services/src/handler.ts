@@ -4,9 +4,9 @@ import * as ddApi from "./ddApi";
 export async function hello(event, context, callback) {
   // const balances = await ddClient.getBalance({});
 
-  const places = await ddClient.getPlaces();
+  //const places = await ddClient.getPlaces();
   // const currencies = await ddClient.getCurrencyList();
-  const categories = await ddApi.getCategoryList();
+  // const categories = await ddApi.getCategoryList();
 
   //  const dadOperations = await ddClient.getOperations({
   //    placeIds: [40032]

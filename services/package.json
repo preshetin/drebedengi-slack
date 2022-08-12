@@ -1,0 +1,17 @@
+{
+  "name": "@drebedengi-slack/services",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {},
+  "dependencies": {
+    "aws-sdk": "^2.1191.0",
+    "@slack/bolt": "^3.11.0",
+    "bluebird": "^3.7.2",
+    "lodash": "^4.17.21",
+    "strong-soap": "^3.4.0",
+    "tslib": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.102"
+  }
+}
