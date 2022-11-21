@@ -3,16 +3,13 @@ import * as ddApi from "./ddApi";
 import ddClient from "./ddClient";
 
 export async function openIncomeModal(client: WebClient, triggerId: string) {
-  const categories = await ddApi.getCategoryList();
-  const categoriesOptions = buildCategoriesOptions(categories);
-
-  const places = await ddApi.getPlaceList();
+  const places = await ddClient.getPlaces();
   const placesOptions = buildPlacesOptions(places);
 
-  const sources = await ddApi.getSourceList();
+  const sources = await ddClient.getSourceList();
   const sourcesOptions = buildSourcesOptions(sources);
 
-  const currencies = await ddApi.getCurrencyList();
+  const currencies = await ddClient.getCurrencyList();
   const currencyOptions = buildCurencyOptions(currencies);
 
   await client.views.open({
