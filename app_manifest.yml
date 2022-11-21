@@ -10,7 +10,7 @@ features:
     - command: /drebedengi
       url: https://zm4n2wtsy8.execute-api.us-east-1.amazonaws.com/prod/slack/events
       description: Записать операцию
-      usage_hint: "[income|expense|move]"
+      usage_hint: "[income|expense|move|balance]"
       should_escape: false
 oauth_config:
   scopes:

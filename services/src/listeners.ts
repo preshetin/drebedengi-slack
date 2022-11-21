@@ -3,7 +3,6 @@ import { openExpenseModal } from "./expenseModal";
 import { openIncomeModal } from "./incomeModal";
 import ddClient from "./ddClient";
 import * as customMiddleware from "./customMiddleware";
-import sayBalanceMessage from "./sayBalanceMessage";
 import { ExpenseFormResult } from "./expenseFormResultInterface";
 import IncomeFormResult from "./incomeFormResultInterface";
 import {
@@ -14,6 +13,7 @@ import {
 import { expenseMessage } from "./expenseMessage";
 import { incomeMessage } from "./incomeMessage";
 import { openMoveModal } from "./moveModal";
+import { openBalanceModal } from "./balanceModal";
 import { moveMessage } from "./moveMessage";
 import { MoveFormResult } from "./moveFormResultInterface";
 
@@ -35,6 +35,9 @@ export function registerListeners(app: App) {
         case "move":
           await openMoveModal(client, body.trigger_id);
           break;
+        case "balance":
+          await openBalanceModal(client, body.trigger_id);
+          break;
         default:
         // propose to choose income or expense option
       }
@@ -52,7 +55,7 @@ export function registerListeners(app: App) {
 
   app.event("app_mention", async ({ body, client, logger, context, say }) => {
     try {
-      await sayBalanceMessage(say);
+      logger.info('app was mentioned');
     } catch (e) {
       logger.error(e);
     }
