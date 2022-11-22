@@ -33,7 +33,7 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
       },
       title: {
         type: "plain_text",
-        text: "Добавить расход",
+        text: "Внести расход",
         emoji: true,
       },
       blocks: [

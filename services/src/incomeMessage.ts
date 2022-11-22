@@ -5,10 +5,10 @@ interface MessageBlocks {
   blocks?: any[];
 }
 
-export async function incomeMessage(
+export function incomeMessage(
   values: IncomeFormResult,
   user: string
-): Promise<MessageBlocks> {
+): MessageBlocks {
   const sum = values.sum.sum.value;
 
   const currency = values.currencyId.currencyId.selected_option.text.text;

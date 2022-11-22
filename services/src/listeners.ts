@@ -16,31 +16,22 @@ import { openMoveModal } from "./moveModal";
 import { openBalanceModal } from "./balanceModal";
 import { moveMessage } from "./moveMessage";
 import { MoveFormResult } from "./moveFormResultInterface";
+import { menuMessage } from "./menuMessage";
 
 export function registerListeners(app: App) {
   customMiddleware.enableAll(app);
 
-  app.command("/drebedengi", async ({ body, client, logger, context, ack }) => {
+  app.command("/drebedengi", async ({ body, client, logger, ack }) => {
     await ack();
 
     try {
-      switch (body.text.trim()) {
-        case "expense":
-          await openExpenseModal(client, body.trigger_id);
-          break;
-        case "income":
-          logger.info("income requested");
-          await openIncomeModal(client, body.trigger_id);
-          break;
-        case "move":
-          await openMoveModal(client, body.trigger_id);
-          break;
-        case "balance":
-          await openBalanceModal(client, body.trigger_id);
-          break;
-        default:
-        // propose to choose income or expense option
-      }
+      const mes = menuMessage();
+
+      await client.chat.postEphemeral({
+        channel: process.env.NOTIFICATION_CHANNEL_ID as string,
+        user: body.user_id,
+        ...mes,
+      });
     } catch (e) {
       logger.error(
         `Failed to publish a view for user: (response: ${JSON.stringify(e)})`,
@@ -49,27 +40,8 @@ export function registerListeners(app: App) {
     }
   });
 
-  // app.message('foo', async ({body, message}) => {
-  //   console.log('22222')
-  // })
-
-  app.event("app_mention", async ({ body, client, logger, context, say }) => {
-    try {
-      logger.info('app was mentioned');
-    } catch (e) {
-      logger.error(e);
-    }
-  });
-
   app.action(
     { type: "block_actions", action_id: "link-button" },
-    async ({ ack }) => {
-      await ack();
-    }
-  );
-
-  app.action(
-    { type: "block_actions", action_id: "recordType" },
     async ({ ack }) => {
       await ack();
     }
@@ -217,7 +189,7 @@ export function registerListeners(app: App) {
       );
       logger.info("create Income Result", createIncomeResult);
 
-      const mes = await incomeMessage(values, body.user.id);
+      const mes = incomeMessage(values, body.user.id);
 
       await client.chat.postMessage({
         channel,
@@ -291,4 +263,28 @@ export function registerListeners(app: App) {
       );
     }
   });
+
+  app.action(
+    { type: "block_actions", action_id: /^menu_action_*/ },
+    async ({ client, action, body, ack }) => {
+      await ack();
+
+      switch (action.action_id) {
+        case "menu_action_expense":
+          await openExpenseModal(client, body.trigger_id);
+          break;
+        case "menu_action_income":
+          await openIncomeModal(client, body.trigger_id);
+          break;
+        case "menu_action_move":
+          await openMoveModal(client, body.trigger_id);
+          break;
+        case "menu_action_balance":
+          await openBalanceModal(client, body.trigger_id);
+          break;
+        default:
+          throw new Error(`No such action: ${action.action_id}`);
+      }
+    }
+  );
 }

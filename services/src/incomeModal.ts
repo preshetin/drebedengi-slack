@@ -29,7 +29,7 @@ export async function openIncomeModal(client: WebClient, triggerId: string) {
       },
       title: {
         type: "plain_text",
-        text: "Добавить доход",
+        text: "Внести доход",
         emoji: true,
       },
       blocks: [
