@@ -20,7 +20,7 @@ authorName: 'Peter Reshetin'
 ## How to send reminder to fill place of storage
 
 ```
-curl 'https://qgge0lus8g.execute-api.us-east-1.amazonaws.com/remind_to_fill_in?user=U8CPP6ADP' | jq
+curl 'https://{AWS_URL}/remind_to_fill_in?user=U8CPP6ADP' | jq
 ```
 
 Things to note:
