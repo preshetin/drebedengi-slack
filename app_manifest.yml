@@ -8,32 +8,33 @@ features:
     always_online: false
   slash_commands:
     - command: /drebedengi
-      url: https://zm4n2wtsy8.execute-api.us-east-1.amazonaws.com/prod/slack/events
+      url: https://api_id.execute-api.us-east-1.amazonaws.com/slack/events
       description: Записать операцию
-      usage_hint: "[income|expense|move|balance]"
+      usage_hint: "[expense|income|move]"
       should_escape: false
 oauth_config:
   scopes:
     bot:
-      - app_mentions:read
       - channels:history
+      - channels:read
       - chat:write
+      - commands
       - groups:history
       - im:history
       - mpim:history
-      - commands
+      - users:read
 settings:
   event_subscriptions:
-    request_url: http://d5ac-54-159-219-217.ngrok.io/slack/events
+    request_url: https://api_id.execute-api.us-east-1.amazonaws.com/slack/events
     bot_events:
-      - app_mention
       - message.channels
       - message.groups
       - message.im
       - message.mpim
   interactivity:
     is_enabled: true
-    request_url: http://d5ac-54-159-219-217.ngrok.io/slack/events
+    request_url: https://api_id.execute-api.us-east-1.amazonaws.com/slack/events
   org_deploy_enabled: false
   socket_mode_enabled: false
   token_rotation_enabled: false
+
