@@ -5,6 +5,7 @@ export function DrebedengiSlackStack({ stack }: StackContext) {
     routes: {
       "GET /hello": "src/handler.hello",
       "POST /slack/events": "src/main.handler",
+      "GET /remind_to_fill_in": "src/remind.handler"
     },
   });
   stack.addOutputs({

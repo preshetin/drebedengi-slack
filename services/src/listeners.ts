@@ -1,4 +1,6 @@
 import { App } from "@slack/bolt";
+import axios from "axios";
+import { ChatUpdateArguments, WebClient } from "@slack/web-api";
 import { openExpenseModal } from "./expenseModal";
 import { openIncomeModal } from "./incomeModal";
 import ddClient from "./ddClient";
@@ -285,6 +287,29 @@ export function registerListeners(app: App) {
         default:
           throw new Error(`No such action: ${action.action_id}`);
       }
+    }
+  );
+
+  app.action(
+    { type: "block_actions", action_id: "places_info_confirmed" },
+    async ({ client, ack, body }) => {
+      await ack();
+
+      await client.chat.postMessage({
+        channel: "C03EW7TQKFB", // debug-private channel in Vipassana Minsk workspace
+        //   channel: "C8CPP6DND", // #general channel in Bonanza 88 workspace
+        text: `<@${body.user.id}> только что подтвердил актуальность данных в своих кошельках.`,
+      });
+
+      //   await axios.post(body.response_url, {
+      //     replace_original: true,
+      //     text: 'all good'
+      //   })
+
+      await client.chat.postMessage({
+        channel: body.user.id,
+        text: ":white_check_mark: Вы отметили, что данные верны",
+      });
     }
   );
 }
