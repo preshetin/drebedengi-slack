@@ -1,71 +1,29 @@
 <!--
-title: 'AWS NodeJS Example'
-description: 'This template demonstrates how to deploy a NodeJS function running on AWS Lambda using the traditional Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-priority: 1
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
+title: 'Drebedengi Slack App'
+description: 'Slack app that helps working with Drebedengi personal finance'
+authorLink: 'https://github.com/preshetin'
+authorName: 'Peter Reshetin'
 -->
 
-# Serverless Framework AWS NodeJS Example
+# Drebedengi Slack App
 
-This template demonstrates how to deploy a NodeJS function running on AWS Lambda using the traditional Serverless Framework. The deployed function does not include any event definitions as well as any kind of persistence (database). For more advanced configurations check out the [examples repo](https://github.com/serverless/examples/) which includes integrations with SQS, DynamoDB or examples of functions that are triggered in `cron`-like manner. For details about configuration of specific `events`, please refer to our [documentation](https://www.serverless.com/framework/docs/providers/aws/events/).
+### Add expenses to Drebedengi, check balance via Slack app
+<img width="604" alt="CleanShot 2022-11-23 at 17 16 29@2x" src="https://user-images.githubusercontent.com/4620130/203544801-3ed966cd-bc81-49ca-87e2-596dbea38931.png">
 
-## Usage
+<img width="571" alt="CleanShot 2022-11-23 at 17 18 07@2x" src="https://user-images.githubusercontent.com/4620130/203545083-fa04223c-be94-4a19-b7c1-2a8615dda746.png">
 
-### Deployment
+### Get notified about expenses and income
 
-In order to deploy the example, you need to run the following command:
+<img width="442" alt="CleanShot 2022-11-23 at 17 19 29@2x" src="https://user-images.githubusercontent.com/4620130/203545291-3c8884a0-6df2-45eb-a3c6-cd181990042b.png">
 
-```
-$ serverless deploy
-```
 
-After running deploy, you should see output similar to:
-
-```bash
-Deploying aws-node-project to stage dev (us-east-1)
-
-✔ Service deployed to stack aws-node-project-dev (112s)
-
-functions:
-  hello: aws-node-project-dev-hello (1.5 kB)
-```
-
-### Invocation
-
-After successful deployment, you can invoke the deployed function by using the following command:
-
-```bash
-serverless invoke --function hello
-```
-
-Which should result in response similar to the following:
-
-```json
-{
-  "statusCode": 200,
-  "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": {}\n}"
-}
-```
-
-### Local development
-
-You can invoke your function locally by using the following command:
-
-```bash
-serverless invoke local --function hello
-```
-
-Which should result in response similar to the following:
+## How to send reminder to fill place of storage
 
 ```
-{
-    "statusCode": 200,
-    "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
-}
+curl 'https://qgge0lus8g.execute-api.us-east-1.amazonaws.com/remind_to_fill_in?user=U8CPP6ADP' | jq
 ```
+
+Things to note:
+- The deployed function has env var that are connected to proper Slack app and Drebedengi account
+- Make sure to fill proper notification channel URL at https://github.com/preshetin/drebedengi-slack/blob/73ec52cdfde4cddfcb9208bbc0818216e4f8c01a/services/src/listeners.ts#L299-L300
+- Some text in reminder message is hardcoded, see https://github.com/preshetin/drebedengi-slack/blob/73ec52cdfde4cddfcb9208bbc0818216e4f8c01a/services/src/remind.ts#L50
