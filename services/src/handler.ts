@@ -2,7 +2,7 @@ import ddClient from "./ddClient";
 import * as ddApi from "./ddApi";
 
 export async function hello(event, context, callback) {
-  // const balances = await ddClient.getBalance({});
+  const balances = await ddClient.getBalance({});
 
   //const places = await ddClient.getPlaces();
   // const currencies = await ddClient.getCurrencyList();
@@ -25,7 +25,7 @@ export async function hello(event, context, callback) {
     statusCode: 200,
     body: JSON.stringify({
       //dadOperations,
-      tags,
+      balances,
       // env: process.env.SLACK_SIGNING_SECRET,
       // places,
       // currencies,

@@ -1,5 +1,5 @@
 import { App } from "@slack/bolt";
-import { buildExpenseModalView, expenseAcknowledgeModalView } from "./expense";
+import { buildExpenseModalView } from "./expense";
 import { incomeModalView } from "./incomeModal";
 import ddClient from "./ddClient";
 import * as customMiddleware from "./customMiddleware";
@@ -32,6 +32,11 @@ export function registerListeners(app: App) {
         trigger_id: body.trigger_id,
         view: {
           type: "modal",
+          close: {
+            type: "plain_text",
+            text: "OK",
+            emoji: true,
+          },
           callback_id: "menu",
           title: {
             type: "plain_text",
@@ -85,7 +90,7 @@ export function registerListeners(app: App) {
           });
           break;
         case "menu_action_balance":
-          const modal = await balanceModalView();
+          const modal = await balanceModalView(body.user.id);
           await client.views.push({
             trigger_id: body.trigger_id,
             // view_id: body.view!.id,
@@ -114,6 +119,11 @@ export function registerListeners(app: App) {
         trigger_id: body.trigger_id,
         view: {
           type: "modal",
+          close: {
+            type: "plain_text",
+            text: "OK",
+            emoji: true,
+          },
           callback_id: "menu",
           title: {
             type: "plain_text",
