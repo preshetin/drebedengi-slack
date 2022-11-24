@@ -1,13 +1,11 @@
-import ddClient from "./ddClient";
-import * as ddApi from "./ddApi";
-import { MoveFormResult } from "./moveFormResultInterface";
-
 interface MessageBlocks {
   text: string;
   blocks?: any[];
 }
 
-export function menuMessage(): MessageBlocks {
+export default {message};
+
+export function message(): MessageBlocks {
   return {
     text: "Привет, я помогаю работать с Дребеденьгами. Сейчас вы можете: посмотреть баланс, внести доход, внести расход, создать перемещение",
     blocks: [
@@ -15,7 +13,7 @@ export function menuMessage(): MessageBlocks {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: "Привет, я помогаю работать с Дребеденьгами.\n\n *Сейчас вы можете:*",
+          text: "Сейчас вы можете:",
         },
       },
       {

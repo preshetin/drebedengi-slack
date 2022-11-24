@@ -1,26 +1,17 @@
-import { WebClient } from "@slack/web-api";
+import {ModalView} from "@slack/bolt";
 import * as ddApi from "./ddApi";
-import axios from "axios";
 import ddClient from "./ddClient";
 
-export async function openExpenseModal(client: WebClient, triggerId: string) {
-  const categories = await ddClient.getCategoryList();
-  const categoriesOptions = buildCategoriesOptions(categories);
-
-  const tags = await ddClient.getTagList();
-  const tagsOptions = buildTagsOptions(tags);
-
-  const places = await ddApi.getPlaceList();
+export async function moveModalView(): Promise<ModalView> {
+  const places = await ddClient.getPlaces();
   const placesOptions = buildPlacesOptions(places);
 
   const currencies = await ddApi.getCurrencyList();
   const currencyOptions = buildCurencyOptions(currencies);
 
-  await client.views.open({
-    trigger_id: triggerId,
-    view: {
+  return {
       type: "modal",
-      callback_id: "expense-modal-submit",
+      callback_id: "move-modal-submit",
       submit: {
         type: "plain_text",
         text: "Отправить",
@@ -33,7 +24,7 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
       },
       title: {
         type: "plain_text",
-        text: "Внести расход",
+        text: "Создать перемещение",
         emoji: true,
       },
       blocks: [
@@ -79,6 +70,25 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
         },
         {
           type: "input",
+          block_id: "fromPlaceId",
+          element: {
+            action_id: "fromPlaceId",
+            type: "static_select",
+            placeholder: {
+              type: "plain_text",
+              text: "Выберите из списка",
+              emoji: true,
+            },
+            options: placesOptions,
+          },
+          label: {
+            type: "plain_text",
+            text: "Место хранения, откуда",
+            emoji: true,
+          },
+        },
+        {
+          type: "input",
           block_id: "placeId",
           element: {
             action_id: "placeId",
@@ -92,7 +102,7 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
           },
           label: {
             type: "plain_text",
-            text: "Кошелек / место хранения",
+            text: "Место хранения, куда",
             emoji: true,
           },
         },
@@ -104,51 +114,13 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
             type: "plain_text_input",
             placeholder: {
               type: "plain_text",
-              text: "На что были потрачены деньги",
+              text: "Например, причина перемещения",
             },
             multiline: true,
           },
           label: {
             type: "plain_text",
-            text: "Описание траты",
-          },
-        },
-        {
-          type: "input",
-          block_id: "categoryId",
-          element: {
-            action_id: "categoryId",
-            type: "static_select",
-            placeholder: {
-              type: "plain_text",
-              text: "Выберите категорию",
-              emoji: true,
-            },
-            options: categoriesOptions,
-          },
-          label: {
-            type: "plain_text",
-            text: "Категория",
-            emoji: true,
-          },
-        },
-        {
-          type: "input",
-          block_id: "tags",
-          element: {
-            action_id: "tags",
-            type: "multi_static_select",
-            placeholder: {
-              type: "plain_text",
-              text: "Добавьте теги",
-              emoji: true,
-            },
-            options: tagsOptions,
-          },
-          label: {
-            type: "plain_text",
-            text: "Теги",
-            emoji: true,
+            text: "Комментарий",
           },
           optional: true,
         },
@@ -160,7 +132,7 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
             type: "datepicker",
             placeholder: {
               type: "plain_text",
-              text: "Если трата сегодня, можете оставить пустым",
+              text: "Если это сегодня, можете оставить пустым",
             },
           },
           label: {
@@ -170,49 +142,8 @@ export async function openExpenseModal(client: WebClient, triggerId: string) {
           },
           optional: true,
         },
-        {
-          type: "divider",
-        },
-        {
-          type: "input",
-          block_id: "ignoreNotification",
-          element: {
-            type: "checkboxes",
-            options: [
-              {
-                text: {
-                  type: "plain_text",
-                  text: "Не отправлять уведомоление",
-                  emoji: true,
-                },
-                value: "yes",
-              },
-            ],
-            action_id: "ignoreNotification",
-          },
-          label: {
-            type: "plain_text",
-            text: "Уведомление в Slack",
-            emoji: true,
-          },
-          optional: true,
-        },
       ],
-    },
-  });
-}
-
-export async function notify(body: any) {
-  // TODO: respond should be supported by Bolt
-  const responseUrl = (body as any).response_url;
-  console.log("responseUrl", responseUrl);
-  if (responseUrl && responseUrl.length > 0) {
-    const url = responseUrl;
-    console.log("url", url, JSON.stringify(body.view.state.values));
-    await axios.post(url, {
-      text: "```" + JSON.stringify(body.view.state.values) + "```",
-    });
-  }
+    }
 }
 
 function buildCurencyOptions(currencies: any[]): any[] {
@@ -234,25 +165,5 @@ function buildPlacesOptions(
       text: place.name,
     },
     value: `${place.id}`,
-  }));
-}
-
-function buildCategoriesOptions(categories: any[]): any[] {
-  return categories.map((category) => ({
-    text: {
-      type: "plain_text",
-      text: category.name,
-    },
-    value: `${category.id}`,
-  }));
-}
-
-function buildTagsOptions(tags: any[]): any[] {
-  return tags.map((item) => ({
-    text: {
-      type: "plain_text",
-      text: item.name,
-    },
-    value: `${item.id}`,
   }));
 }

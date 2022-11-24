@@ -1,8 +1,6 @@
 import { App } from "@slack/bolt";
-import axios from "axios";
-import { ChatUpdateArguments, WebClient } from "@slack/web-api";
-import { openExpenseModal } from "./expenseModal";
-import { openIncomeModal } from "./incomeModal";
+import { buildExpenseModalView, expenseAcknowledgeModalView } from "./expense";
+import { incomeModalView } from "./incomeModal";
 import ddClient from "./ddClient";
 import * as customMiddleware from "./customMiddleware";
 import { ExpenseFormResult } from "./expenseFormResultInterface";
@@ -14,11 +12,12 @@ import {
 } from "./ts-ddng-client/src/messages/setRecordList";
 import { expenseMessage } from "./expenseMessage";
 import { incomeMessage } from "./incomeMessage";
-import { openMoveModal } from "./moveModal";
-import { openBalanceModal } from "./balanceModal";
+import { balanceModalView } from "./balance";
 import { moveMessage } from "./moveMessage";
 import { MoveFormResult } from "./moveFormResultInterface";
-import { menuMessage } from "./menuMessage";
+import menu from "./menu";
+import { moveModalView } from "./move";
+import {confirmationModal} from "./confirmationModal";
 
 export function registerListeners(app: App) {
   customMiddleware.enableAll(app);
@@ -27,13 +26,26 @@ export function registerListeners(app: App) {
     await ack();
 
     try {
-      const mes = menuMessage();
+      const mes = menu.message();
 
-      await client.chat.postEphemeral({
-        channel: process.env.NOTIFICATION_CHANNEL_ID as string,
-        user: body.user_id,
-        ...mes,
+      await client.views.open({
+        trigger_id: body.trigger_id,
+        view: {
+          type: "modal",
+          callback_id: "menu",
+          title: {
+            type: "plain_text",
+            text: "Дребеденьги",
+          },
+          blocks: mes.blocks ? mes.blocks : [],
+        },
       });
+
+      //   await client.chat.postEphemeral({
+      //     channel: process.env.NOTIFICATION_CHANNEL_ID as string,
+      //     user: body.user_id,
+      //     ...mes,
+      //   });
     } catch (e) {
       logger.error(
         `Failed to publish a view for user: (response: ${JSON.stringify(e)})`,
@@ -43,26 +55,80 @@ export function registerListeners(app: App) {
   });
 
   app.action(
+    { type: "block_actions", action_id: /^menu_action_*/ },
+    async ({ client, action, body, ack }) => {
+      await ack();
+
+      switch (action.action_id) {
+        case "menu_action_expense":
+          const expenseModal = await buildExpenseModalView();
+          await client.views.push({
+            trigger_id: body.trigger_id,
+            // view_id: body.view!.id,
+            view: expenseModal,
+          });
+          break;
+        case "menu_action_income":
+          const incomeModal = await incomeModalView();
+          await client.views.push({
+            trigger_id: body.trigger_id,
+            // view_id: body.view!.id,
+            view: incomeModal,
+          });
+          break;
+        case "menu_action_move":
+          const moveModal = await moveModalView();
+          await client.views.push({
+            trigger_id: body.trigger_id,
+            // view_id: body.view!.id,
+            view: moveModal,
+          });
+          break;
+        case "menu_action_balance":
+          const modal = await balanceModalView();
+          await client.views.push({
+            trigger_id: body.trigger_id,
+            // view_id: body.view!.id,
+            view: modal,
+          });
+
+          break;
+        default:
+          throw new Error(`No such action: ${action.action_id}`);
+      }
+    }
+  );
+
+  app.action(
     { type: "block_actions", action_id: "link-button" },
     async ({ ack }) => {
       await ack();
     }
   );
 
-  app.shortcut(
-    "drebedengi-add-expense",
-    async ({ body, client, logger, ack }) => {
-      await ack();
-      try {
-        await openExpenseModal(client, body.trigger_id);
-      } catch (e) {
-        logger.error(
-          `Failed to publish a view for user: (response: ${JSON.stringify(e)})`,
-          e
-        );
-      }
+  app.shortcut("drebedengi", async ({ body, client, logger, ack }) => {
+    await ack();
+    try {
+      const mes = menu.message();
+      await client.views.open({
+        trigger_id: body.trigger_id,
+        view: {
+          type: "modal",
+          callback_id: "menu",
+          title: {
+            type: "plain_text",
+            text: "Дребеденьги",
+          },
+          blocks: mes.blocks ? mes.blocks : [],
+        },
+      });
+    } catch (e) {
+      logger.error(
+        `Failed to publish a view for user: (response: ${JSON.stringify(e)})`,
+        e
+      );
     }
-  );
+  });
 
   app.view("expense-modal-submit", async ({ client, body, ack, logger }) => {
     try {
@@ -87,7 +153,8 @@ export function registerListeners(app: App) {
       }
 
       await ack({
-        response_action: "clear",
+        response_action: "update",
+        view: confirmationModal("Дребеденьги", ":white_check_mark: Расход внесен")
       });
 
       const channel = process.env.NOTIFICATION_CHANNEL_ID
@@ -115,10 +182,6 @@ export function registerListeners(app: App) {
         createExpenseParams.dateTime =
           values.recordDate.recordDate.selected_date;
       }
-
-      const createExpenseResult = await ddClient.createExpense(
-        createExpenseParams
-      );
 
       const mes = await expenseMessage(values, body.user.id);
 
@@ -165,7 +228,10 @@ export function registerListeners(app: App) {
         return;
       }
 
-      await ack({ response_action: "clear" });
+      await ack({
+        response_action: "update",
+        view: confirmationModal("Дребеденьги", ":white_check_mark: Доход внесен")
+      });
 
       const channel = process.env.NOTIFICATION_CHANNEL_ID
         ? process.env.NOTIFICATION_CHANNEL_ID
@@ -229,7 +295,10 @@ export function registerListeners(app: App) {
         return;
       }
 
-      await ack({ response_action: "clear" });
+      await ack({
+        response_action: "update",
+        view: confirmationModal("Дребеденьги", ":white_check_mark: Перемещение внесено")
+      });
 
       const channel = process.env.NOTIFICATION_CHANNEL_ID
         ? process.env.NOTIFICATION_CHANNEL_ID
@@ -265,30 +334,6 @@ export function registerListeners(app: App) {
       );
     }
   });
-
-  app.action(
-    { type: "block_actions", action_id: /^menu_action_*/ },
-    async ({ client, action, body, ack }) => {
-      await ack();
-
-      switch (action.action_id) {
-        case "menu_action_expense":
-          await openExpenseModal(client, body.trigger_id);
-          break;
-        case "menu_action_income":
-          await openIncomeModal(client, body.trigger_id);
-          break;
-        case "menu_action_move":
-          await openMoveModal(client, body.trigger_id);
-          break;
-        case "menu_action_balance":
-          await openBalanceModal(client, body.trigger_id);
-          break;
-        default:
-          throw new Error(`No such action: ${action.action_id}`);
-      }
-    }
-  );
 
   app.action(
     { type: "block_actions", action_id: "places_info_confirmed" },

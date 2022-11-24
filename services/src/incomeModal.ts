@@ -1,8 +1,7 @@
-import { WebClient } from "@slack/web-api";
-import * as ddApi from "./ddApi";
+import {ModalView} from "@slack/bolt";
 import ddClient from "./ddClient";
 
-export async function openIncomeModal(client: WebClient, triggerId: string) {
+export async function incomeModalView(): Promise<ModalView> {
   const places = await ddClient.getPlaces();
   const placesOptions = buildPlacesOptions(places);
 
@@ -12,9 +11,7 @@ export async function openIncomeModal(client: WebClient, triggerId: string) {
   const currencies = await ddClient.getCurrencyList();
   const currencyOptions = buildCurencyOptions(currencies);
 
-  await client.views.open({
-    trigger_id: triggerId,
-    view: {
+  return {
       type: "modal",
       callback_id: "income-modal-submit",
       submit: {
@@ -169,8 +166,7 @@ export async function openIncomeModal(client: WebClient, triggerId: string) {
           optional: true,
         },
       ],
-    },
-  });
+    }
 }
 
 function buildCurencyOptions(currencies: any[]): any[] {
