@@ -103,7 +103,8 @@ function calculateSlackUsers(balances: GetBalanceResult): string[] {
 }
 
 function getBalanceIndicator(sum: number): string {
-  if (sum < 0) return ':red_circle: ';
-  if (sum > 0) return ':large_green_circle: ';
-  if (sum === 0) return ':white_circle: ';
+  if (sum < 0) return ":red_circle: ";
+  if (sum > 0) return ":large_green_circle: ";
+  if (sum === 0) return ":white_circle: ";
+  return "";
 }
