@@ -39,45 +39,16 @@ interface MessageBlocks {
   blocks?: any[];
 }
 
-function remindMessage(slackUid: string): MessageBlocks {
+export function remindMessage(slackUid: string, initiatorSlackUid: string): MessageBlocks {
   return {
-    text: `<@${slackUid}> просьба обновить данные в кошельках Дребеденег. Или подтвердите, что все актуально`,
+    text: `Привет :wave: <@${slackUid}>. Просьба уточнить, актуальны ли данные в ваших кошельках:`,
     blocks: [
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `Привет, <@${slackUid}>. В Дребеденьгах за вами закреплены кошельки с ненулевым балансом: \n• Дана Сбербанк (Петр): 65 433.38 RUB \n• Дана (Петя): 100 000 RUB\n• Дана (Петя): 300 USD\n\n Если данные неактуальны, обновите их.\n\n `,
-        },
-      },
-      {
-        type: "divider",
-      },
-      {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: "Если данные верны, нажмите на эту кнопку. ",
-        },
-        accessory: {
-          type: "button",
-          text: {
-            type: "plain_text",
-            text: ":white_check_mark: Данные верны",
-            emoji: true,
-          },
-          action_id: "places_info_confirmed",
-        },
-      },
-      {
-        type: "divider",
-      },
-      {
-        type: "section",
-        text: {
-          type: "plain_text",
-          text: "Или внесите операции:",
-          emoji: true,
+          text: `Привет :wave: <@${slackUid}>. Просьба уточнить, актуальны ли данные в ваших кошельках: \n• Дана Сбербанк (Петр): 65 433.38 RUB \n• Дана (Петя): 100 000 RUB\n• Дана (Петя): 300 USD\n\n Нажмите на одну из этих :point_down: кнопок`,
+          verbatim: false,
         },
       },
       {
@@ -85,30 +56,23 @@ function remindMessage(slackUid: string): MessageBlocks {
         elements: [
           {
             type: "button",
+            action_id: "places_info_confirmed",
+            value: JSON.stringify({initiatorSlackUid}),
+            style: "primary",
             text: {
               type: "plain_text",
-              text: ":moneybag: Внести доход",
+              text: "Данные верны",
               emoji: true,
             },
-            action_id: "menu_action_income",
           },
           {
             type: "button",
+            action_id: "main_menu",
             text: {
               type: "plain_text",
-              text: ":money_with_wings: Внести расход",
+              text: "Добавить операции",
               emoji: true,
             },
-            action_id: "menu_action_expense",
-          },
-          {
-            type: "button",
-            text: {
-              type: "plain_text",
-              text: ":left_right_arrow: Перемещение",
-              emoji: true,
-            },
-            action_id: "menu_action_move",
           },
         ],
       },

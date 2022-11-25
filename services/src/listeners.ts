@@ -17,34 +17,57 @@ import { moveMessage } from "./moveMessage";
 import { MoveFormResult } from "./moveFormResultInterface";
 import menu from "./menu";
 import { moveModalView } from "./move";
-import {confirmationModal} from "./confirmationModal";
+import { confirmationModal } from "./confirmationModal";
+import { remindMessage } from "./remind";
 
 export function registerListeners(app: App) {
   customMiddleware.enableAll(app);
 
-  app.command("/drebedengi", async ({ body, client, logger, ack }) => {
+  app.command("/drebedengi", async ({ body, command, client, logger, ack }) => {
     await ack();
 
     try {
-      const mes = menu.message();
+      if (command.text.trim() === "") {
+        const mes = menu.message();
 
-      await client.views.open({
-        trigger_id: body.trigger_id,
-        view: {
-          type: "modal",
-          close: {
-            type: "plain_text",
-            text: "OK",
-            emoji: true,
+        await client.views.open({
+          trigger_id: body.trigger_id,
+          view: {
+            type: "modal",
+            close: {
+              type: "plain_text",
+              text: "OK",
+              emoji: true,
+            },
+            callback_id: "menu",
+            title: {
+              type: "plain_text",
+              text: "Дребеденьги",
+            },
+            blocks: mes.blocks ? mes.blocks : [],
           },
-          callback_id: "menu",
-          title: {
-            type: "plain_text",
-            text: "Дребеденьги",
-          },
-          blocks: mes.blocks ? mes.blocks : [],
-        },
-      });
+        });
+      }
+
+      if (command.text.trim().includes("remind")) {
+        const receiverSlackUsername = command.text.split(" ")[1].slice(1);
+
+        const receiverUser = (await client.users.list()).members!.find(
+          (user) => user.name === receiverSlackUsername
+        );
+
+        if (receiverUser) {
+          const slackUid = receiverUser.id as string;
+
+          const message = remindMessage(slackUid, body.user_id);
+          await client.chat.postMessage({ channel: slackUid, ...message });
+
+          await client.chat.postMessage({
+            channel: body.user_id,
+            text: `Отправлена просьба для <@${receiverUser.id}> актуализировать данные кошельков`,
+          });
+        }
+      }
 
       //   await client.chat.postEphemeral({
       //     channel: process.env.NOTIFICATION_CHANNEL_ID as string,
@@ -164,7 +187,10 @@ export function registerListeners(app: App) {
 
       await ack({
         response_action: "update",
-        view: confirmationModal("Дребеденьги", ":white_check_mark: Расход внесен")
+        view: confirmationModal(
+          "Дребеденьги",
+          ":white_check_mark: Расход внесен"
+        ),
       });
 
       const channel = process.env.NOTIFICATION_CHANNEL_ID
@@ -240,7 +266,10 @@ export function registerListeners(app: App) {
 
       await ack({
         response_action: "update",
-        view: confirmationModal("Дребеденьги", ":white_check_mark: Доход внесен")
+        view: confirmationModal(
+          "Дребеденьги",
+          ":white_check_mark: Доход внесен"
+        ),
       });
 
       const channel = process.env.NOTIFICATION_CHANNEL_ID
@@ -307,7 +336,10 @@ export function registerListeners(app: App) {
 
       await ack({
         response_action: "update",
-        view: confirmationModal("Дребеденьги", ":white_check_mark: Перемещение внесено")
+        view: confirmationModal(
+          "Дребеденьги",
+          ":white_check_mark: Перемещение внесено"
+        ),
       });
 
       const channel = process.env.NOTIFICATION_CHANNEL_ID
@@ -346,13 +378,45 @@ export function registerListeners(app: App) {
   });
 
   app.action(
+    { type: "block_actions", action_id: "main_menu" },
+    async ({ ack, body, client }) => {
+      await ack();
+      const mes = menu.message();
+
+      await client.views.open({
+        trigger_id: body.trigger_id,
+
+        // TODO: make this modal DRY
+        view: {
+          type: "modal",
+          close: {
+            type: "plain_text",
+            text: "OK",
+            emoji: true,
+          },
+          callback_id: "menu",
+          title: {
+            type: "plain_text",
+            text: "Дребеденьги",
+          },
+          blocks: mes.blocks ? mes.blocks : [],
+        },
+      });
+    }
+  );
+
+  app.action(
     { type: "block_actions", action_id: "places_info_confirmed" },
-    async ({ client, ack, body }) => {
+    async ({ client, ack, body, payload }) => {
       await ack();
 
+      console.log(11111);
+      console.log(payload);
+      const payloadCopy = payload as any;
+      const { initiatorSlackUid } = JSON.parse(payloadCopy.value);
+
       await client.chat.postMessage({
-        channel: "C03EW7TQKFB", // debug-private channel in Vipassana Minsk workspace
-        //   channel: "C8CPP6DND", // #general channel in Bonanza 88 workspace
+        channel: initiatorSlackUid,
         text: `<@${body.user.id}> только что подтвердил актуальность данных в своих кошельках.`,
       });
 
