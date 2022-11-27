@@ -1,4 +1,4 @@
-import IncomeFormResult from "./incomeFormResultInterface";
+import { IncomeFormResult } from "./incomeFormResultInterface";
 
 interface MessageBlocks {
   text: string;
@@ -15,21 +15,27 @@ export function incomeMessage(
   const source = values.sourceId.sourceId.selected_option.text.text;
   const place = values.placeId.placeId.selected_option.text.text;
 
-  const commentText = values.comment.comment.value
-    ? `Комментарий:\n${values.comment.comment.value}`
-    : "";
+  const commentArr: string[] = [
+    values.comment.comment.value || values.tags.tags.selected_options.length
+      ? "Комментарий:\n" + values.comment.comment.value
+      : "",
+    ...values.tags.tags.selected_options.map(
+      (item) => `[${item.text.text}]`
+    ),
+  ];
+  const comment = commentArr.join(" ");
 
   const recordDateText = values.recordDate.recordDate.selected_date
     ? "Дата: " + values.recordDate.recordDate.selected_date
     : "";
 
   let detailsText = "";
-  if (commentText === "" && recordDateText === "") {
+  if (comment === "" && recordDateText === "") {
     // do nothing
   } else {
     detailsText += "```";
-    if (commentText !== "") {
-      detailsText += commentText;
+    if (comment !== "") {
+      detailsText += comment;
     }
     if (recordDateText !== "") {
       detailsText += "\n";
@@ -41,13 +47,13 @@ export function incomeMessage(
   // +1000 RUB на _Сбербанк_. (источник _Консультации Светы_), ввел(а) preshetin ```Комментарий:\nПеревод по СБП. ФИО отправителя: Алексей Сергеевич Г.\nДата: 2022-06-15```
 
   return {
-    text: `+${sum} ${currency} в место хранания ${place} (источник ${source}), ввел(а) <@${user}>`,
+    text: `+${sum} ${currency} доход :moneybag: в место хранания ${place}, источник ${source}, ввел(а) <@${user}>`,
     blocks: [
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `+${sum} ${currency} в место хранения _${place}_ (источник _${source}_), ввел(а) <@${user}> ${detailsText}`,
+          text: `+${sum} ${currency} доход :moneybag: в место хранения ${place}, источник ${source}, ввел(а) <@${user}> ${detailsText}`,
         },
       },
     ],

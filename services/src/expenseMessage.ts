@@ -16,16 +16,31 @@ export async function expenseMessage(
   const place = values.placeId.placeId.selected_option.text.text;
 
   const commentArr: string[] = [
-    values.comment.comment.value,
-    ...values.tags.tags.selected_options.map(
-      (item) => `\`[${item.text.text}]\``
-    ),
+    values.comment.comment.value || values.tags.tags.selected_options.length
+      ? "Комментарий:\n" + values.comment.comment.value
+      : "",
+    ...values.tags.tags.selected_options.map((item) => `[${item.text.text}]`),
   ];
   const comment = commentArr.join(" ");
 
-  const recordDate = values.recordDate.recordDate.selected_date
-    ? values.recordDate.recordDate.selected_date
-    : "сегодня";
+  const recordDateText = values.recordDate.recordDate.selected_date
+    ? "Дата: " + values.recordDate.recordDate.selected_date
+    : "";
+
+  let detailsText = "";
+  if (comment === "" && recordDateText === "") {
+    // do nothing
+  } else {
+    detailsText += "```";
+    if (comment !== "") {
+      detailsText += comment;
+    }
+    if (recordDateText !== "") {
+      detailsText += "\n";
+      detailsText += recordDateText;
+    }
+    detailsText += "```";
+  }
 
   return {
     text: `Новая трата на сумму ${sum} ${currency} от <@${user}>,  категория ${category} `,
@@ -34,7 +49,7 @@ export async function expenseMessage(
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `\`Новая Трата\`\n*Cумма:* ${sum} ${currency} \n *Категория:* ${category} \n *Комментарий:* ${comment} \n *Кошелек:* ${place} | добавил(а) <@${user}>  \n *Дата:* ${recordDate}  \n`,
+          text: `Расход :money_with_wings: на сумму ${sum} ${currency} из кошелька ${place}, категория ${category}, ввел(а) <@${user}> ${detailsText}`,
         },
       },
     ],

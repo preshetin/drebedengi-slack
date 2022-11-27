@@ -1,10 +1,11 @@
 // Auto-generated at https://app.quicktype.io/
 
-export default interface IncomeFormResult {
+export interface IncomeFormResult {
   sum: Sum;
   currencyId: CurrencyID;
   placeId: PlaceID;
   sourceId: SourceID;
+  tags: IncomeFormResultTags;
   comment: IncomeFormResultComment;
   recordDate: IncomeFormResultRecordDate;
 }
@@ -57,4 +58,13 @@ export interface SourceID {
 
 export interface Sum {
   sum: SumClass;
+}
+
+export interface IncomeFormResultTags {
+  tags: TagsTags;
+}
+
+export interface TagsTags {
+  type: string;
+  selected_options: SelectedOption[];
 }

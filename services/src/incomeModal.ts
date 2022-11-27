@@ -5,6 +5,9 @@ export async function incomeModalView(): Promise<ModalView> {
   const places = await ddClient.getPlaces();
   const placesOptions = buildPlacesOptions(places);
 
+  const tags = await ddClient.getTagList();
+  const tagsOptions = buildTagsOptions(tags);
+
   const sources = await ddClient.getSourceList();
   const sourcesOptions = buildSourcesOptions(sources);
 
@@ -110,6 +113,26 @@ export async function incomeModalView(): Promise<ModalView> {
         },
         {
           type: "input",
+          block_id: "tags",
+          element: {
+            action_id: "tags",
+            type: "multi_static_select",
+            placeholder: {
+              type: "plain_text",
+              text: "Добавьте теги",
+              emoji: true,
+            },
+            options: tagsOptions,
+          },
+          label: {
+            type: "plain_text",
+            text: "Теги",
+            emoji: true,
+          },
+          optional: true,
+        },
+        {
+          type: "input",
           block_id: "comment",
           element: {
             action_id: "comment",
@@ -208,5 +231,16 @@ function buildSourcesOptions(sources: any[]): any[] {
       text: source.name,
     },
     value: `${source.id}`,
+  }));
+}
+
+// TODO: make it DRY (it is copied from expense modal)
+function buildTagsOptions(tags: any[]): any[] {
+  return tags.map((item) => ({
+    text: {
+      type: "plain_text",
+      text: item.name,
+    },
+    value: `${item.id}`,
   }));
 }

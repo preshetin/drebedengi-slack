@@ -4,7 +4,7 @@ import { incomeModalView } from "./incomeModal";
 import ddClient from "./ddClient";
 import * as customMiddleware from "./customMiddleware";
 import { ExpenseFormResult } from "./expenseFormResultInterface";
-import IncomeFormResult from "./incomeFormResultInterface";
+import { IncomeFormResult  } from "./incomeFormResultInterface";
 import {
   CreateExpenseParams,
   CreateIncomeParams,
@@ -276,10 +276,17 @@ export function registerListeners(app: App) {
         ? process.env.NOTIFICATION_CHANNEL_ID
         : body.user.id;
 
+      const commentArr: string[] = [
+        values.comment.comment.value,
+        `[введено ${body.user.name}]`,
+        ...values.tags.tags.selected_options.map(
+          (item) => `[${item.text.text}]`
+        ),
+      ];
+      const comment = commentArr.join(" ");
+
       const createIncomeParams: CreateIncomeParams = {
-        comment: values.comment.comment.value
-          ? values.comment.comment.value
-          : "",
+        comment,
         sum: Math.floor(+values.sum.sum.value * 100),
         placeId: +values.placeId.placeId.selected_option.value,
         sourceId: +values.sourceId.sourceId.selected_option.value,
@@ -290,11 +297,6 @@ export function registerListeners(app: App) {
         createIncomeParams.dateTime =
           values.recordDate.recordDate.selected_date;
       }
-
-      const createIncomeResult = await ddClient.createIncome(
-        createIncomeParams
-      );
-      logger.info("create Income Result", createIncomeResult);
 
       const mes = incomeMessage(values, body.user.id);
 
