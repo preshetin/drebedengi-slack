@@ -47,7 +47,7 @@ export function incomeMessage(
   // +1000 RUB на _Сбербанк_. (источник _Консультации Светы_), ввел(а) preshetin ```Комментарий:\nПеревод по СБП. ФИО отправителя: Алексей Сергеевич Г.\nДата: 2022-06-15```
 
   return {
-    text: `+${sum} ${currency} доход :moneybag: в место хранания ${place}, источник ${source}, ввел(а) <@${user}>`,
+    text: `+${sum} ${currency} доход :moneybag: в место хранения ${place}, источник ${source}, ввел(а) <@${user}>`,
     blocks: [
       {
         type: "section",

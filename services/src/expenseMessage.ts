@@ -43,7 +43,7 @@ export async function expenseMessage(
   }
 
   return {
-    text: `Новая трата на сумму ${sum} ${currency} от <@${user}>,  категория ${category} `,
+    text: `Новая трата на сумму ${sum} ${currency} от <@${user}>, категория ${category}`,
     blocks: [
       {
         type: "section",
