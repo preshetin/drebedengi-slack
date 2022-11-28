@@ -219,6 +219,11 @@ export function registerListeners(app: App) {
           values.recordDate.recordDate.selected_date;
       }
 
+      const createExpenseResult = await ddClient.createExpense(
+        createExpenseParams
+      );
+      logger.info("create Expense Result", createExpenseResult);
+
       const mes = await expenseMessage(values, body.user.id);
 
       if (
@@ -297,6 +302,11 @@ export function registerListeners(app: App) {
         createIncomeParams.dateTime =
           values.recordDate.recordDate.selected_date;
       }
+
+      const createIncomeResult = await ddClient.createIncome(
+        createIncomeParams
+      );
+      logger.info("create Income Result", createIncomeResult);
 
       const mes = incomeMessage(values, body.user.id);
 
