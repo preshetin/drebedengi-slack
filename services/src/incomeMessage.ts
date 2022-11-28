@@ -16,8 +16,8 @@ export function incomeMessage(
   const place = values.placeId.placeId.selected_option.text.text;
 
   const commentArr: string[] = [
-    values.comment.comment.value || values.tags.tags.selected_options.length
-      ? "Комментарий:\n" + values.comment.comment.value ? values.comment.comment.value : ''
+    (values.comment.comment.value || values.tags.tags.selected_options.length)
+      ? "Комментарий:\n" + (values.comment.comment.value ? values.comment.comment.value : '')
       : "",
     ...values.tags.tags.selected_options.map(
       (item) => `[${item.text.text}]`
