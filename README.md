@@ -19,11 +19,8 @@ authorName: 'Peter Reshetin'
 
 ## How to send reminder to fill place of storage
 
-```
-curl 'https://{AWS_URL}/remind_to_fill_in?user=U1234567' | jq
-```
+Use `/drebedengi` slash command like this:
 
-Things to note:
-- The deployed function has env var that are connected to proper Slack app and Drebedengi account
-- Make sure to fill proper notification channel URL at https://github.com/preshetin/drebedengi-slack/blob/73ec52cdfde4cddfcb9208bbc0818216e4f8c01a/services/src/listeners.ts#L299-L300
-- Some text in reminder message is hardcoded, see https://github.com/preshetin/drebedengi-slack/blob/73ec52cdfde4cddfcb9208bbc0818216e4f8c01a/services/src/remind.ts#L50
+```
+/drebedengi remind @some_user
+```
