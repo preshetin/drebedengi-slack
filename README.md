@@ -7,6 +7,9 @@ authorName: 'Peter Reshetin'
 
 # Drebedengi Slack App
 
+![drebedengi-demo](https://user-images.githubusercontent.com/4620130/205001359-56539ca5-b855-4c8f-a4e7-18b3e173952c.gif)
+
+
 ### Add expenses to Drebedengi, check balance via Slack app
 <img width="604" alt="CleanShot 2022-11-23 at 17 16 29@2x" src="https://user-images.githubusercontent.com/4620130/203544801-3ed966cd-bc81-49ca-87e2-596dbea38931.png">
 
