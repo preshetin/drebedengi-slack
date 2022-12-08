@@ -6,6 +6,7 @@ import * as customMiddleware from "./customMiddleware";
 import { ExpenseFormResult } from "./expenseFormResultInterface";
 import { IncomeFormResult  } from "./incomeFormResultInterface";
 import {
+  CreateExchangeParams,
   CreateExpenseParams,
   CreateIncomeParams,
   CreateMoveParams,
@@ -19,6 +20,8 @@ import menu from "./menu";
 import { moveModalView } from "./move";
 import { confirmationModal } from "./confirmationModal";
 import { remindMessage } from "./remind";
+import {exchangeModalView} from "./exchangeModal";
+import {ExchangeFormResult} from "./exchangeFormResultInterface";
 
 export function registerListeners(app: App) {
   customMiddleware.enableAll(app);
@@ -102,6 +105,14 @@ export function registerListeners(app: App) {
             trigger_id: body.trigger_id,
             // view_id: body.view!.id,
             view: incomeModal,
+          });
+          break;
+        case "menu_action_exchange":
+          const exchangeModal = await exchangeModalView();
+          await client.views.push({
+            trigger_id: body.trigger_id,
+            // view_id: body.view!.id,
+            view: exchangeModal,
           });
           break;
         case "menu_action_move":
@@ -321,6 +332,90 @@ export function registerListeners(app: App) {
       );
     }
   });
+
+  app.view("exhange-modal-submit", async ({ body, ack, logger }) => {
+    try {
+      const values = body.view.state.values as unknown as ExchangeFormResult;
+
+      logger.info("values of ExchangeFormResult", JSON.stringify(values));
+
+      if (values && values.fromSum && isNaN(Number(values.fromSum.fromSum.value))) {
+        await ack({
+          response_action: "errors",
+          errors: {
+            fromSum: "Введите число. Для разделения копеек ипользуйте точку",
+          },
+        });
+        return;
+      }
+
+      if (values && values.sum && isNaN(Number(values.sum.sum.value))) {
+        await ack({
+          response_action: "errors",
+          errors: {
+            sum: "Введите число. Для разделения копеек ипользуйте точку",
+          },
+        });
+        return;
+      }
+
+      if (+values.fromSum.fromSum.value <= 0) {
+        await ack({
+          response_action: "errors",
+          errors: { fromSum: "Число должно быть положительное" },
+        });
+        return;
+      }
+
+      if (+values.sum.sum.value <= 0) {
+        await ack({
+          response_action: "errors",
+          errors: { sum: "Число должно быть положительное" },
+        });
+        return;
+      }
+
+      await ack({
+        response_action: "update",
+        view: confirmationModal(
+          "Дребеденьги",
+          ":white_check_mark: Обмен валют внесен"
+        ),
+      });
+
+      const commentArr: string[] = [
+        values.comment.comment.value,
+        `[введено ${body.user.name}]`,
+      ];
+      const comment = commentArr.join(" ");
+
+      const createExchangeParams: CreateExchangeParams  = {
+        fromCurrencyId: +values.fromCurrencyId.fromCurrencyId.selected_option.value,
+        fromSum: Math.floor(+values.fromSum.fromSum.value * 100),
+        sum: Math.floor(+values.sum.sum.value * 100),
+        currencyId: +values.currencyId.currencyId.selected_option.value,
+        placeId: +values.placeId.placeId.selected_option.value,
+        comment,
+      };
+
+      if (typeof values.recordDate.recordDate.selected_date === "string") {
+        createExchangeParams.dateTime =
+          values.recordDate.recordDate.selected_date;
+      }
+
+      const createExchangeResult = await ddClient.createExchange(
+        createExchangeParams
+      );
+      logger.info("create Exchange Result", createExchangeResult);
+
+    } catch (e) {
+      logger.error(
+        `Failed to handle modal submit (response: ${JSON.stringify(e)})`,
+        e
+      );
+    }
+  });
+
 
   app.view("move-modal-submit", async ({ client, body, ack, logger }) => {
     try {

@@ -58,6 +58,15 @@ export function message(): MessageBlocks {
             },
             action_id: "menu_action_move",
           },
+          {
+            type: "button",
+            text: {
+              type: "plain_text",
+              text: ":currency_exchange: Обмен валют",
+              emoji: true,
+            },
+            action_id: "menu_action_exchange",
+          },
         ],
       },
     ],
