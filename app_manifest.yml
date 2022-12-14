@@ -8,7 +8,7 @@ features:
     always_online: false
   slash_commands:
     - command: /drebedengi
-      url: https://api_id.execute-api.us-east-1.amazonaws.com/slack/events
+      url: {ApiEndpoint}/slack/events
       description: Записать операцию
       usage_hint: ""
       should_escape: false
@@ -25,7 +25,7 @@ oauth_config:
       - users:read
 settings:
   event_subscriptions:
-    request_url: https://api_id.execute-api.us-east-1.amazonaws.com/slack/events
+    request_url: {ApiEndpoint}/slack/events
     bot_events:
       - message.channels
       - message.groups
@@ -33,7 +33,7 @@ settings:
       - message.mpim
   interactivity:
     is_enabled: true
-    request_url: https://api_id.execute-api.us-east-1.amazonaws.com/slack/events
+    request_url: {ApiEndpoint}/slack/events
   org_deploy_enabled: false
   socket_mode_enabled: false
   token_rotation_enabled: false
