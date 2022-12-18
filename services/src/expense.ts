@@ -8,7 +8,9 @@ export async function buildExpenseModalView(): Promise<ModalView> {
   const categories = await ddClient.getCategoryList();
   const categoriesOptions = buildCategoriesOptions(categories);
 
-  const tags = await ddClient.getTagList();
+  let tags = await ddClient.getTagList();
+  tags = tags.filter((tagItem: any) => tagItem.is_hidden === 'f');
+  tags = tags.filter((tagItem: any) => !tagItem.name.includes("введено "));
   const tagsOptions = buildTagsOptions(tags);
 
   const places = await ddApi.getPlaceList();

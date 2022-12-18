@@ -5,7 +5,9 @@ export async function incomeModalView(): Promise<ModalView> {
   const places = await ddClient.getPlaces();
   const placesOptions = buildPlacesOptions(places);
 
-  const tags = await ddClient.getTagList();
+  let tags = await ddClient.getTagList();
+  tags = tags.filter((tagItem: any) => tagItem.is_hidden === 'f');
+  tags = tags.filter((tagItem: any) => !tagItem.name.includes("введено "));
   const tagsOptions = buildTagsOptions(tags);
 
   const sources = await ddClient.getSourceList();
