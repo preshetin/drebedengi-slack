@@ -13,10 +13,10 @@ export async function buildExpenseModalView(): Promise<ModalView> {
   tags = tags.filter((tagItem: any) => !tagItem.name.includes("введено "));
   const tagsOptions = buildTagsOptions(tags);
 
-  const places = await ddApi.getPlaceList();
+  const places = await ddClient.getPlaces();
   const placesOptions = buildPlacesOptions(places);
 
-  const currencies = await ddApi.getCurrencyList();
+  const currencies = await ddClient.getCurrencyList();
   const currencyOptions = buildCurencyOptions(currencies);
 
   return {
