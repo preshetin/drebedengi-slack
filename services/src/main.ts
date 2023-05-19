@@ -1,6 +1,3 @@
-// import { loadEnv } from './dotenv';
-// loadEnv();
-
 import { App, AwsLambdaReceiver } from "@slack/bolt";
 import { LogLevel } from "@slack/logger";
 import { registerListeners } from "./listeners";
