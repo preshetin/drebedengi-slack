@@ -9,6 +9,8 @@ authorName: 'Peter Reshetin'
 
 # Drebedengi Slack App
 
+This app was created with [SST](https://sst.dev/).
+
 ![drebedengi-demo](https://user-images.githubusercontent.com/4620130/205003685-42b40bf0-a997-41a0-80bb-e60df2c34996.gif)
 
 <details>
