@@ -1,0 +1,5 @@
+before_compile:
+  - echo "Before compile"
+  - git submodule init
+  - git submodule update
+  - echo "finish git submodule"
