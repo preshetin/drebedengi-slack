@@ -7,7 +7,9 @@ import {
 
 const NON_PERSONAL = "Non personal";
 
-export async function balanceModalView(currentSlackUid: string): Promise<ModalView> {
+export async function balanceModalView(
+  currentSlackUid: string
+): Promise<ModalView> {
   const balances = await ddClient.getBalance({});
   const balancesFormattedList = buildBalancesList(balances, currentSlackUid);
 
@@ -35,7 +37,10 @@ export async function balanceModalView(currentSlackUid: string): Promise<ModalVi
   };
 }
 
-function buildBalancesList(balances: GetBalanceResult, currentSlackUid: string): string {
+function buildBalancesList(
+  balances: GetBalanceResult,
+  currentSlackUid: string
+): string {
   const slackUsers = calculateSlackUsers(balances, currentSlackUid);
 
   let result = "";
@@ -84,7 +89,10 @@ function balanceDescriptionHasSlackUid(description: string | null) {
   );
 }
 
-function calculateSlackUsers(balances: GetBalanceResult, currentSlackUid: string): string[] {
+function calculateSlackUsers(
+  balances: GetBalanceResult,
+  currentSlackUid: string
+): string[] {
   let result: string[] = [];
   for (const balanceItem of balances) {
     if (
@@ -99,7 +107,12 @@ function calculateSlackUsers(balances: GetBalanceResult, currentSlackUid: string
     }
   }
 
-  return Array.from(new Set(result)).sort().reverse().sort(function(x,y){ return x == currentSlackUid ? -1 : y == currentSlackUid ? 1 : 0; });
+  return Array.from(new Set(result))
+    .sort()
+    .reverse()
+    .sort(function (x, y) {
+      return x == currentSlackUid ? -1 : y == currentSlackUid ? 1 : 0;
+    });
 }
 
 function getBalanceIndicator(sum: number): string {

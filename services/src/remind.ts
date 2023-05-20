@@ -2,22 +2,23 @@ import {
   AwsEvent,
   AwsCallback,
 } from "@slack/bolt/dist/receivers/AwsLambdaReceiver";
-import {WebClient} from "@slack/web-api";
+import { WebClient } from "@slack/web-api";
 
 export async function handler(
   event: AwsEvent,
   context: any,
   callback: AwsCallback
 ) {
-
-  const slackUid = event.queryStringParameters ? event.queryStringParameters.user : null;
+  const slackUid = event.queryStringParameters
+    ? event.queryStringParameters.user
+    : null;
 
   const client = new WebClient(process.env.SLACK_BOT_TOKEN);
 
   const users = await client.users.list();
 
   let messageIsSent = false;
-  if (typeof slackUid == 'string') {
+  if (typeof slackUid == "string") {
     const message = remindMessage(slackUid);
     await client.chat.postMessage({ channel: slackUid, ...message });
     messageIsSent = true;
@@ -27,7 +28,7 @@ export async function handler(
     statusCode: 200,
     body: JSON.stringify({
       messageIsSent,
-      users: messageIsSent ? 'some users' : users,
+      users: messageIsSent ? "some users" : users,
       input: event,
     }),
   };
@@ -39,7 +40,10 @@ interface MessageBlocks {
   blocks?: any[];
 }
 
-export function remindMessage(slackUid: string, initiatorSlackUid: string): MessageBlocks {
+export function remindMessage(
+  slackUid: string,
+  initiatorSlackUid: string
+): MessageBlocks {
   return {
     text: `Привет :wave: <@${slackUid}>. Просьба уточнить, актуальны ли данные в ваших кошельках:`,
     blocks: [
@@ -57,7 +61,7 @@ export function remindMessage(slackUid: string, initiatorSlackUid: string): Mess
           {
             type: "button",
             action_id: "places_info_confirmed",
-            value: JSON.stringify({initiatorSlackUid}),
+            value: JSON.stringify({ initiatorSlackUid }),
             style: "primary",
             text: {
               type: "plain_text",

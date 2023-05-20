@@ -4,7 +4,7 @@ import { incomeModalView } from "./incomeModal";
 import ddClient from "./ddClient";
 import * as customMiddleware from "./customMiddleware";
 import { ExpenseFormResult } from "./expenseFormResultInterface";
-import { IncomeFormResult  } from "./incomeFormResultInterface";
+import { IncomeFormResult } from "./incomeFormResultInterface";
 import {
   CreateExchangeParams,
   CreateExpenseParams,
@@ -20,8 +20,8 @@ import menu from "./menu";
 import { moveModalView } from "./move";
 import { confirmationModal } from "./confirmationModal";
 import { remindMessage } from "./remind";
-import {exchangeModalView} from "./exchangeModal";
-import {ExchangeFormResult} from "./exchangeFormResultInterface";
+import { exchangeModalView } from "./exchangeModal";
+import { ExchangeFormResult } from "./exchangeFormResultInterface";
 
 export function registerListeners(app: App) {
   customMiddleware.enableAll(app);
@@ -319,7 +319,23 @@ export function registerListeners(app: App) {
       );
       logger.info("create Income Result", createIncomeResult);
 
-      const mes = incomeMessage(values, body.user.id);
+      const balances = await ddClient.getBalance({});
+
+      const balanceObject = balances.find(
+        (el) =>
+          el.placeId === +values.placeId.placeId.selected_option.value &&
+          el.currencyId === +values.currencyId.currencyId.selected_option.value
+      );
+
+      const balanceSum = Math.floor(balanceObject!.sum / 100);
+      const balanceCurrency = balanceObject!.currencyName;
+
+      const mes = incomeMessage(
+        values,
+        balanceSum,
+        balanceCurrency,
+        body.user.id
+      );
 
       await client.chat.postMessage({
         channel,
@@ -339,7 +355,11 @@ export function registerListeners(app: App) {
 
       logger.info("values of ExchangeFormResult", JSON.stringify(values));
 
-      if (values && values.fromSum && isNaN(Number(values.fromSum.fromSum.value))) {
+      if (
+        values &&
+        values.fromSum &&
+        isNaN(Number(values.fromSum.fromSum.value))
+      ) {
         await ack({
           response_action: "errors",
           errors: {
@@ -389,8 +409,9 @@ export function registerListeners(app: App) {
       ];
       const comment = commentArr.join(" ");
 
-      const createExchangeParams: CreateExchangeParams  = {
-        fromCurrencyId: +values.fromCurrencyId.fromCurrencyId.selected_option.value,
+      const createExchangeParams: CreateExchangeParams = {
+        fromCurrencyId:
+          +values.fromCurrencyId.fromCurrencyId.selected_option.value,
         fromSum: Math.floor(+values.fromSum.fromSum.value * 100),
         sum: Math.floor(+values.sum.sum.value * 100),
         currencyId: +values.currencyId.currencyId.selected_option.value,
@@ -407,7 +428,6 @@ export function registerListeners(app: App) {
         createExchangeParams
       );
       logger.info("create Exchange Result", createExchangeResult);
-
     } catch (e) {
       logger.error(
         `Failed to handle modal submit (response: ${JSON.stringify(e)})`,
@@ -415,7 +435,6 @@ export function registerListeners(app: App) {
       );
     }
   });
-
 
   app.view("move-modal-submit", async ({ client, body, ack, logger }) => {
     try {

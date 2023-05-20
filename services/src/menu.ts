@@ -3,7 +3,7 @@ interface MessageBlocks {
   blocks?: any[];
 }
 
-export default {message};
+export default { message };
 
 export function message(): MessageBlocks {
   return {
