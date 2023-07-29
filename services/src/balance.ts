@@ -71,8 +71,9 @@ function buildBalancesList(
     );
 
     for (const balanceItem of balancesOfMaybeSlackUser) {
+      const formattedSum = (balanceItem.sum / 100).toLocaleString()
       result += getBalanceIndicator(balanceItem.sum);
-      result += `${balanceItem.placeName}: ${balanceItem.sum / 100} ${
+      result += `${balanceItem.placeName}: ${formattedSum} ${
         balanceItem.currencyName
       }`;
       result += "\n\n";
