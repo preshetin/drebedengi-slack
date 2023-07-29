@@ -71,11 +71,11 @@ function buildBalancesList(
     );
 
     for (const balanceItem of balancesOfMaybeSlackUser) {
-      const formattedSum = (balanceItem.sum / 100).toLocaleString()
+      const formattedSum = (balanceItem.sum / 100).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+      });
       result += getBalanceIndicator(balanceItem.sum);
-      result += `${balanceItem.placeName}: ${formattedSum} ${
-        balanceItem.currencyName
-      }`;
+      result += `${balanceItem.placeName}: ${formattedSum} ${balanceItem.currencyName}`;
       result += "\n\n";
     }
     result += "\n\n";

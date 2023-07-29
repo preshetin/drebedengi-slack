@@ -9,7 +9,8 @@ export async function expenseMessage(
   values: ExpenseFormResult,
   user: string
 ): Promise<MessageBlocks> {
-  const sum = values.sum.sum.value;
+  const sum = +values.sum.sum.value;
+  const sumFormatted = sum.toLocaleString();
 
   const category = values.categoryId.categoryId.selected_option.text.text;
   const currency = values.currencyId.currencyId.selected_option.text.text;
@@ -43,13 +44,13 @@ export async function expenseMessage(
   }
 
   return {
-    text: `Новая трата на сумму ${sum} ${currency} от <@${user}>, категория ${category}`,
+    text: `Новая трата на сумму ${sumFormatted} ${currency} от <@${user}>, категория ${category}`,
     blocks: [
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `Расход :money_with_wings: на сумму ${sum} ${currency} из кошелька ${place}, категория ${category}, ввел(а) <@${user}> ${detailsText}`,
+          text: `Расход :money_with_wings: на сумму ${sumFormatted} ${currency} из кошелька ${place}, категория ${category}, ввел(а) <@${user}> ${detailsText}`,
         },
       },
     ],
