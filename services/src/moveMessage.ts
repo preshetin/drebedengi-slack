@@ -12,7 +12,9 @@ export async function moveMessage(
   user: string
 ): Promise<MessageBlocks> {
   const sum = +values.sum.sum.value;
-  const sumFormatted = sum.toLocaleString();
+  const sumFormatted = sum.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
 
   const currency = values.currencyId.currencyId.selected_option.text.text;
   const place = values.placeId.placeId.selected_option.text.text;

@@ -10,7 +10,9 @@ export async function expenseMessage(
   user: string
 ): Promise<MessageBlocks> {
   const sum = +values.sum.sum.value;
-  const sumFormatted = sum.toLocaleString();
+  const sumFormatted = sum.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
 
   const category = values.categoryId.categoryId.selected_option.text.text;
   const currency = values.currencyId.currencyId.selected_option.text.text;

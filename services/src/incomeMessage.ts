@@ -12,7 +12,13 @@ export function incomeMessage(
   user: string
 ): MessageBlocks {
   const sum = +values.sum.sum.value;
-  const sumFormatted = sum.toLocaleString();
+  const sumFormatted = sum.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
+
+  const balanceSumFormatted = balanceSum.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
 
   const currency = values.currencyId.currencyId.selected_option.text.text;
   const source = values.sourceId.sourceId.selected_option.text.text;
@@ -49,13 +55,13 @@ export function incomeMessage(
   // +1000 RUB на _Сбербанк_. (источник _Консультации Светы_), ввел(а) preshetin ```Комментарий:\nПеревод по СБП. ФИО отправителя: Алексей Сергеевич Г.\nДата: 2022-06-15```
 
   return {
-    text: `+${sumFormatted} ${currency} доход :moneybag: в место хранения ${place}. Баланс ${balanceSum.toLocaleString()} ${balanceCurrency}. Источник ${source}, ввел(а) <@${user}>`,
+    text: `+${sumFormatted} ${currency} доход :moneybag: в место хранения ${place}. Баланс ${balanceSumFormatted} ${balanceCurrency}. Источник ${source}, ввел(а) <@${user}>`,
     blocks: [
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `+${sumFormatted} ${currency} доход :moneybag: в место хранения ${place}. Баланс ${balanceSum.toLocaleString()} ${balanceCurrency}. Источник ${source}, ввел(а) <@${user}> ${detailsText}`,
+          text: `+${sumFormatted} ${currency} доход :moneybag: в место хранения ${place}. Баланс ${balanceSumFormatted} ${balanceCurrency}. Источник ${source}, ввел(а) <@${user}> ${detailsText}`,
         },
       },
     ],
