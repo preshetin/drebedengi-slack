@@ -11,7 +11,8 @@ export async function moveMessage(
   values: MoveFormResult,
   user: string
 ): Promise<MessageBlocks> {
-  const sum = values.sum.sum.value;
+  const sum = +values.sum.sum.value;
+  const sumFormatted = sum.toLocaleString();
 
   const currency = values.currencyId.currencyId.selected_option.text.text;
   const place = values.placeId.placeId.selected_option.text.text;
@@ -43,13 +44,13 @@ export async function moveMessage(
   // +1000 RUB на _Сбербанк_. (источник _Консультации Светы_), ввел(а) preshetin ```Комментарий:\nПеревод по СБП. ФИО отправителя: Алексей Сергеевич Г.\nДата: 2022-06-15```
 
   return {
-    text: `Перемещение ${sum} ${currency} из места хранения ${fromPlace} в место хранения ${place}, ввел(а) <@${user}>`,
+    text: `Перемещение ${sumFormatted} ${currency} из места хранения ${fromPlace} в место хранения ${place}, ввел(а) <@${user}>`,
     blocks: [
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `Перемещение ${sum} ${currency} из места хранения ${fromPlace} в место хранения ${place}, ввел(а) <@${user}> ${detailsText}`,
+          text: `Перемещение ${sumFormatted} ${currency} из места хранения ${fromPlace} в место хранения ${place}, ввел(а) <@${user}> ${detailsText}`,
         },
       },
     ],
