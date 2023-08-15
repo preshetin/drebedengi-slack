@@ -24,6 +24,7 @@ import { exchangeModalView } from "./exchangeModal";
 import { ExchangeFormResult } from "./exchangeFormResultInterface";
 import menuLeftovers from "./menu-leftovers";
 import { buildLeftoversListModalView } from "./leftoversListModal";
+import { exchangeMessage } from "./exchangeMessage";
 
 export function registerListeners(app: App) {
   customMiddleware.enableAll(app);
@@ -415,7 +416,7 @@ export function registerListeners(app: App) {
     }
   });
 
-  app.view("exhange-modal-submit", async ({ body, ack, logger }) => {
+  app.view("exhange-modal-submit", async ({ client, body, ack, logger }) => {
     try {
       const values = body.view.state.values as unknown as ExchangeFormResult;
 
@@ -493,6 +494,13 @@ export function registerListeners(app: App) {
       const createExchangeResult = await ddClient.createExchange(
         createExchangeParams
       );
+
+      const channel = process.env.NOTIFICATION_CHANNEL_ID
+        ? process.env.NOTIFICATION_CHANNEL_ID
+        : body.user.id;
+      const mes = await exchangeMessage(values, body.user.id);
+      await client.chat.postMessage({ channel, ...mes });
+
       logger.info("create Exchange Result", createExchangeResult);
     } catch (e) {
       logger.error(
