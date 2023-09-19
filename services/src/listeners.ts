@@ -22,8 +22,6 @@ import { confirmationModal } from "./confirmationModal";
 import { remindMessage } from "./remind";
 import { exchangeModalView } from "./exchangeModal";
 import { ExchangeFormResult } from "./exchangeFormResultInterface";
-import menuLeftovers from "./menu-leftovers";
-import { buildLeftoversListModalView } from "./leftoversListModal";
 import { exchangeMessage } from "./exchangeMessage";
 
 export function registerListeners(app: App) {
@@ -87,70 +85,6 @@ export function registerListeners(app: App) {
       );
     }
   });
-
-
-  app.command("/ostatki", async ({ body, command, client, logger, ack }) => {
-    await ack();
-
-    try {
-      if (command.text.trim() === "") {
-        const mes = menuLeftovers.message();
-
-        await client.views.open({
-          trigger_id: body.trigger_id,
-          view: {
-            type: "modal",
-            close: {
-              type: "plain_text",
-              text: "OK",
-              emoji: true,
-            },
-            callback_id: "menu",
-            title: {
-              type: "plain_text",
-              text: "Остатки продуктов",
-            },
-            blocks: mes.blocks ? mes.blocks : [],
-          },
-        });
-      }
-    } catch (e) {
-      logger.error(
-        `Failed to publish a view for user: (response: ${JSON.stringify(e)})`,
-        e
-      );
-    }
-  });
-
-  app.action(
-    { type: "block_actions", action_id: /^menu_leftovers_action_*/ },
-    async ({ client, action, body, ack }) => {
-      await ack();
-      console.log('aaaaa')
-
-      switch (action.action_id) {
-        case "menu_leftovers_action_vegetables":
-          console.log('000000')
-          const vegModal = await buildLeftoversListModalView('овощи');
-          await client.views.push({
-            trigger_id: body.trigger_id,
-            // view_id: body.view!.id,
-            view: vegModal,
-          });
-          break;
-        case "menu_leftovers_action_fruits":
-          const fruitsModal = await buildLeftoversListModalView('фрукты');
-          await client.views.push({
-            trigger_id: body.trigger_id,
-            // view_id: body.view!.id,
-            view: fruitsModal,
-          });
-          break;
-        default:
-          throw new Error(`No such action: ${action.action_id}`);
-      }
-    }
-  );
 
   app.action(
     { type: "block_actions", action_id: /^menu_action_*/ },
